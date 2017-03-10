@@ -8,7 +8,7 @@
   "resources": [],
   "outputs": {
     "result": {
-        "value": "[Hello parameters('message')]",
+        "value": "[concat('Hello ', parameters('message'))]",
         "type" : "string"
     }
   }
