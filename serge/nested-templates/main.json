@@ -17,7 +17,7 @@
         },
         "parameters": {
             "msg": {
-                "value": "[parameters('message')]"
+                "value": "[deployment().properties.templateLink.uri]"
             }
         }
       }
@@ -26,7 +26,7 @@
   "outputs": {
     "result": {
       "type": "object",
-      "value": "[deployment().properties.templateLink.uri]"
+      "value": "[reference('linkedTemplate').outputs.result]"
     }
   }
 }
