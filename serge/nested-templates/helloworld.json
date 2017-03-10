@@ -8,7 +8,7 @@
   "resources": [],
   "outputs": {
     "result": {
-        "value": "[concat(deployment().properties.templateLink.uri, parameters('msg'))]",
+        "value": "[concat('Hello ', parameters('msg'))]",
         "type" : "string"
     }
   }
