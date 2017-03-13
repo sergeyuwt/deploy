@@ -1,0 +1,41 @@
+
+{
+
+  "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+
+  "contentVersion": "1.0.0.0",
+
+    "parameters": {
+
+        "vmAdminUsername": {
+
+            "value": "domainadmin"
+
+        },
+
+        "vmAdminPassword": {
+
+            "value": "Passw0rdPassw0rd"
+
+        },
+
+        "_artifactsLocation": {
+
+            "value": "https://raw.githubusercontent.com/sergeyuwt/deploy/master/serge/new-agent-vm_checked-in-Jan3_serge_with_activation_split"
+
+        },
+
+        "dnsLabelPrefix": {
+          "value": "myagent1"
+        },
+
+        "storageAccountName": {
+          "value": "sergeaccount1"
+        },
+
+        "activationCode": {
+            "value": "FH80XX816XWM@82F0-2EB4-7C4B-63E7"
+        }
+    }
+
+}
