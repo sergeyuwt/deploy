@@ -6,13 +6,7 @@
             "type": "string",
             "metadata": {
                 "description": "Unique public DNS prefix for the deployment. The fqdn will look something like '<dnsname>.westus.cloudapp.azure.com'. Up to 62 chars, digits or dashes, lowercase, should start with a letter: must conform to '^[a-z][a-z0-9-]{1,61}[a-z0-9]$'."
-            },
-            "publicIPName": {
-                "type": "string",
-                "metadata": {
-                    "description": "public ip name."
-                }
-            }
+        }
     },
     "variables": {
         "publicIPName": "[concat(parameters('dnsLabelPrefix'),'Pip')]"
@@ -20,7 +14,7 @@
     "resources": [
         {
             "type": "Microsoft.Network/publicIPAddresses",
-            "name": "[parameters('publicIPName')]",
+            "name": "[variables('publicIPName')]",
             "apiVersion": "2016-01-01",
             "location": "[resourceGroup().location]",
             "properties": {

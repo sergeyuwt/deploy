@@ -97,9 +97,6 @@
                 "parameters": {
                     "dnsLabelPrefix": {
                         "value": "[parameters('dnsLabelPrefix')]"
-                    },
-                    "publicIPName": {
-                        "value": "[variables('publicIPName')]"
                     }
                 }
             }
