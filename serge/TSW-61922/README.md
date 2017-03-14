@@ -17,21 +17,21 @@ Click the button below to deploy
 
 ### What you can do now
 1. find out the public ip address of the Standard Agent:
-..* Login to [https://portal.azure.com](https://portal.azure.com) using your account credentials
-..* Click "Resource groups"
-..* Find the resource group whose name starts with ..., click on it
-..* Click the "Public IP address" resource. You will be shown the IP Address 
+  * Login to [https://portal.azure.com](https://portal.azure.com) using your account credentials
+  * Click "Resource groups"
+  * Find the resource group whose name starts with ..., click on it
+  * Click the "Public IP address" resource. You will be shown the IP Address 
 
 2. connect Teradici PCoIP client to the Teradici Standard Agent.
-..* using the IP address found in the prevous step, you can now connect Teradici PCoIP client to the Teradici Standard Agent.
+  * using the IP address found in the prevous step, you can now connect Teradici PCoIP client to the Teradici Standard Agent.
 
 ### What you need to do after usage
 
 1. Delete the Teradici Standard Agent from your Microsoft Azure account
-..* Login to [https://portal.azure.com](https://portal.azure.com) using your account credentials
-..* Click "Resource groups"
-..* Find the resource group whose name starts with ..., right-click on it, then select "Delete"
-..* You will be prompted to type the resource group name. Type it and click "Delete" button
+  * Login to [https://portal.azure.com](https://portal.azure.com) using your account credentials
+  * Click "Resource groups"
+  * Find the resource group whose name starts with ..., right-click on it, then select "Delete"
+  * You will be prompted to type the resource group name. Type it and click "Delete" button
 
 
 
