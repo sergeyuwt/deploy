@@ -1,13 +1,11 @@
-# Create a complete deployment of the Cloud Access Software Manager solution including a Domain Controller
+# Deploy Teradici Standard Agent on Microsoft Azure
 
-This template will deploy 5 virtual machines (along with a new VNet, Storage Account, Load Balancer, and gateway).
+This will deploy Teradici Standard Agent on Microsoft Azure.
 
-To administer the deployment through the Cloud Access Software Manager GUI, https: to the public IP of the applicationGateway1 Application Gateway.
+## What you need before the deployment
 
-To connect to the pre-created Agent virtual machine, point the PCoIP client to the public IP of the applicationGateway1 Application gateway and login with the administrator credentials.
 
-To manage the Active Directory Domain, RDP to the domain controller by initiating an RDP session to the adLoadBalancer Load Balancer.
-
+## To deploy
 
 Click the button below to deploy
 
@@ -15,12 +13,13 @@ Click the button below to deploy
     <img src="http://azuredeploy.net/deploybutton.png"/>
 </a>
 
+## What you can no now
 
-To visualize the structure of this deployment template, click here:
 
-<a target="_blank" href="http://armviz.io/#/?load=https%3A%2F%2Fraw.githubusercontent.com%2Fteradici%2Fdeploy%2Fmaster%2Fdev%2Fdomain-controller%2Fazuredeploy.json">
-    <img src="http://armviz.io/visualizebutton.png"/>
-</a>
+## What you need to to after usage
+
+
+
 
 
 
