@@ -17,8 +17,8 @@ Click the button below to deploy
 
 ### What you can do now
 1. find out the public ip address of the Standard Agent:
-  * Login to [https://portal.azure.com](https://portal.azure.com) using your account credentials
-  * Click "Resource groups"
+    * Login to [https://portal.azure.com](https://portal.azure.com) using your account credentials
+    * Click "Resource groups"
   * Find the resource group whose name starts with ..., click on it
   * Click the "Public IP address" resource. You will be shown the IP Address 
 
