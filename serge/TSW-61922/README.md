@@ -1,4 +1,4 @@
-# Deploy Teradici Standard Agent on Microsoft Azure
+# Easy Deploy Teradici Standard Agent on Microsoft Azure
 
 This will deploy Teradici Standard Agent on Microsoft Azure.
 
@@ -35,12 +35,8 @@ Click the button below to deploy
     * Find the resource group whose name starts with ..., right-click on it, then select "Delete"
     * You will be prompted to type the resource group name. Type it and click "Delete" button
 
-
-
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-
+<p>
+<p>
 Copyright 2017 Teradici Corporation. All Rights Reserved.
 
 Some content is based off of the Azure Quickstart Templates, Copyright (c) Microsoft Azure. With the following license: https://github.com/Azure/azure-quickstart-templates/blob/master/LICENSE
