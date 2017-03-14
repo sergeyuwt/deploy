@@ -29,7 +29,7 @@ Click the button below to deploy
 
 ### What you need to do after usage
 
-1. Delete the Teradici Standard Agent from your Microsoft Azure account
+Delete the Teradici Standard Agent from your Microsoft Azure account
     * Login to [https://portal.azure.com](https://portal.azure.com) using your account credentials
     * Click "Resource groups"
     * Find the resource group whose name starts with ..., right-click on it, then select "Delete"
