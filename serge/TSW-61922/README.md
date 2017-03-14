@@ -2,10 +2,12 @@
 
 This will deploy Teradici Standard Agent on Microsoft Azure.
 
-## What you need before the deployment
+### What you need before the deployment
 
+1. A Microsoft Azure account
+2. Activation code for Teradici Standard Agent
 
-## To deploy
+### To deploy
 
 Click the button below to deploy
 
@@ -13,10 +15,14 @@ Click the button below to deploy
     <img src="http://azuredeploy.net/deploybutton.png"/>
 </a>
 
-## What you can no now
+### What you can no now
+1. find out the public ip address of the Standard Agent: (more to come)
+2. connect Teradici PCoIP client the the Standard Agent.
 
+### What you need to to after usage
 
-## What you need to to after usage
+1. Delete the Teradici Standard Agent from your Microsoft Azure account
+
 
 
 
