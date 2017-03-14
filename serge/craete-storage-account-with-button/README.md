@@ -13,7 +13,7 @@ This will deploy Teradici Standard Agent on Microsoft Azure.
 
 Click the button below to deploy, you will be prompted to enter your Azure account credentials and the activation code for Teradici Standard Agent.
 
-<a target="_blank" href="https://portal.azure.com/#create/Microsoft.Template/uri/the_encoded_template_uri">
+<a target="_blank" href="https://portal.azure.com/#create/Microsoft.Template/uri/https://raw.githubusercontent.com/sergeyuwt/deploy/master/serge/craete-storage-account-with-button/new-agent.json">
     <img src="http://azuredeploy.net/deploybutton.png"/>
 </a>
 

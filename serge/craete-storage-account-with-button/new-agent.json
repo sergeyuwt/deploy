@@ -7,7 +7,7 @@
             "metadata": {
                 "description": "The location of resources, such as templates and DSC modules, that the template depends on"
             },
-			defaultValue: ""
+			defaultValue: "https://raw.githubusercontent.com/sergeyuwt/deploy/master/serge/craete-storage-account-with-button"
         },
         "storageAccountName": {
             "type": "string",
