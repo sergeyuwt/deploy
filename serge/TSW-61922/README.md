@@ -5,7 +5,9 @@ This will deploy Teradici Standard Agent on Microsoft Azure.
 ### What you need before the deployment
 
 1. A Microsoft Azure account
+    * to create free Azure account, goto: [https://azure.microsoft.com/en-in/free/]https://azure.microsoft.com/en-in/free/
 2. Activation code for Teradici Standard Agent
+    * to obtain an activation code for Teradici Standard Agent, goto: [todo]todo
 
 ### To deploy
 
