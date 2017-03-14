@@ -1,0 +1,41 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "_artifactsLocation": {
+            "type": "string",
+            "metadata": {
+                "description": "The location of resources, such as templates and DSC modules, that the template depends on"
+            },
+			defaultValue: ""
+        },
+        "storageAccountName": {
+            "type": "string",
+            "metadata": {
+                "description": "Storage account to use for VM data and VHD's"
+            },
+			defaultValue: "syustorage"
+        }
+    },
+    "variables": {
+    },
+    "resources": [
+        {
+          "type": "Microsoft.Resources/deployments",
+          "name": "StorageAccount",
+          "apiVersion": "2016-02-01",
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[concat(parameters('_artifactsLocation'), '/new-storage-account.json')]",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "storageAccountName": {
+                        "value": "[parameters('storageAccountName')]"
+                    }
+                }
+            }
+        }
+    ]
+}
