@@ -27,8 +27,9 @@ Click the button below to deploy
 
 
 
-{empty} +
-{empty} +
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
 
 Copyright 2017 Teradici Corporation. All Rights Reserved.
 
