@@ -17,7 +17,7 @@ Click the button below to deploy
 
 ### What you can no now
 1. find out the public ip address of the Standard Agent: (more to come)
-2. connect Teradici PCoIP client the the Standard Agent.
+2. connect Teradici PCoIP client to the Standard Agent.
 
 ### What you need to to after usage
 
@@ -27,7 +27,8 @@ Click the button below to deploy
 
 
 
-
+{empty} +
+{empty} +
 
 Copyright 2017 Teradici Corporation. All Rights Reserved.
 
