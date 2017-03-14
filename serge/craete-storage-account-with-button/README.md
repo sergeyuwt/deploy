@@ -1,39 +1,15 @@
-# Easy Deploy Teradici Standard Agent on Microsoft Azure
+# Create a storage account
 
-This will deploy Teradici Standard Agent on Microsoft Azure.
 
-### What you need before the deployment
-
-1. A Microsoft Azure account
-    * to create a free Azure account, goto: [https://azure.microsoft.com/en-in/free/](https://azure.microsoft.com/en-in/free/)
-2. An activation code for Teradici Standard Agent
-    * to obtain an activation code for Teradici Standard Agent, goto: [todo](todo)
 
 ### To deploy
 
-Click the button below to deploy, you will be prompted to enter your Azure account credentials and the activation code for Teradici Standard Agent.
+Click the button below to deploy
 
-<a target="_blank" href="https://portal.azure.com/#create/Microsoft.Template/uri/https://raw.githubusercontent.com/sergeyuwt/deploy/master/serge/craete-storage-account-with-button/new-agent.json">
+<a target="_blank" href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fsergeyuwt%2Fdeploy%2Fmaster%2Fserge%2Fcraete-storage-account-with-button%2Fnew-agent.json">
     <img src="http://azuredeploy.net/deploybutton.png"/>
 </a>
 
-### What you can do now
-1. find out the public ip address of the Standard Agent:
-    * Login to [https://portal.azure.com](https://portal.azure.com) using your account credentials
-    * Click "Resource groups"
-    * Find the resource group whose name starts with ..., click on it
-    * Click the "Public IP address" resource. You will be shown the IP Address 
-
-2. connect Teradici PCoIP client to the Teradici Standard Agent.
-    * using the IP address found in the prevous step, you can now connect Teradici PCoIP client to the Teradici Standard Agent.
-
-### What you need to do after usage
-
-Delete the Teradici Standard Agent from your Microsoft Azure account
-  * Login to [https://portal.azure.com](https://portal.azure.com) using your account credentials
-  * Click "Resource groups"
-  * Find the resource group whose name starts with ..., right-click on it, then select "Delete"
-  * You will be prompted to type the resource group name. Type it and click "Delete" button
 
 <p>&nbsp;</p>
 <p>&nbsp;</p>
