@@ -6,8 +6,8 @@ This will deploy Teradici Standard Agent on Microsoft Azure.
 
 1. A Microsoft Azure account
     * to create a free Azure account, goto: [https://azure.microsoft.com/en-in/free/](https://azure.microsoft.com/en-in/free/)
-2. An activation code for Teradici Standard Agent
-    * to obtain an activation code for Teradici Standard Agent, goto: [todo](todo)
+2. A registration code for Teradici Standard Agent
+    * to obtain an registration code for Teradici Standard Agent, goto: [todo](todo)
 
 ### To deploy
 
@@ -22,7 +22,9 @@ This will deploy Teradici Standard Agent on Microsoft Azure.
     * for Subscription: select your subscription
 	* for Resource group: select "Create new", then enter a name (eg. teradici_pcoip)
 	* for Location: select a location
-	* for Activation code: enter the activation code you obtained from Teradici
+	* for Admin User: enter a user name
+	* for Admin Password: enter a password
+	* for registration code: enter the registration code you obtained from Teradici
 	* check the checkbox "I agree to the terms and conditions stated above" and click "Purchase" button
 	* the deployment will now start, which will take about 20 minutes to complete
 	
