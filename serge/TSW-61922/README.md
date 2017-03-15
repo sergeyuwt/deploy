@@ -30,10 +30,9 @@ This will deploy Teradici Standard Agent on Microsoft Azure.
 
 1. find out the public ip address of the Standard Agent:
     * Login to [https://portal.azure.com](https://portal.azure.com) using your account credentials
-    * Click "Resource groups"
-    * Find the resource group whose name starts with ..., click on it
-    * Click the "Public IP address" resource. You will be shown the IP Address 
-
+	* Click "Resource groups"
+	* Find the resource group whose name starts with ..., click on it
+	* Click the "Public IP address" resource. You will be shown the IP Address	
 2. connect Teradici PCoIP client to the Teradici Standard Agent:
     * to download Teradici PCoIP client, goto: [http://www.teradici.com/product-finder/client-downloads](http://www.teradici.com/product-finder/client-downloads)
 	* using the IP address found in the prevous step, you can now connect Teradici PCoIP client to the Teradici Standard Agent.
