@@ -1,4 +1,4 @@
-# Easy Deploy Teradici Standard Agent on Microsoft Azure
+# Deploy Teradici Standard Agent on Microsoft Azure
 
 This will deploy Teradici Standard Agent on Microsoft Azure.
 
@@ -11,13 +11,23 @@ This will deploy Teradici Standard Agent on Microsoft Azure.
 
 ### To deploy
 
-Click the button below to deploy, you will be prompted to enter your Azure account credentials and the activation code for Teradici Standard Agent.
+1. Click the button below to deploy, you will be prompted to enter your Azure account credentials and the activation code for Teradici Standard Agent.
 
 <a target="_blank" href="https://portal.azure.com/#create/Microsoft.Template/uri/the_encoded_template_uri">
     <img src="http://azuredeploy.net/deploybutton.png"/>
 </a>
 
-### What you can do now
+2. In the Microsoft Azure login page, enter your account credentials and click "Sign in" button.
+3. In the next screen:
+    * for Subscription: select your subscription
+	* for Resource group: select "Create new", then enter a name (eg. teradici_pcoip)
+	* for Location: select a location
+	* for Activation code: enter the activation code you obtained from Teradici
+	* check the checkbox "I agree to the terms and conditions stated above" and click "Purchase" button
+	* the deployment will now start, which will take about 20 minutes to complete
+	
+### After the deployment is complete
+
 1. find out the public ip address of the Standard Agent:
     * Login to [https://portal.azure.com](https://portal.azure.com) using your account credentials
     * Click "Resource groups"
@@ -25,7 +35,8 @@ Click the button below to deploy, you will be prompted to enter your Azure accou
     * Click the "Public IP address" resource. You will be shown the IP Address 
 
 2. connect Teradici PCoIP client to the Teradici Standard Agent.
-    * using the IP address found in the prevous step, you can now connect Teradici PCoIP client to the Teradici Standard Agent.
+    * to download Teradici PCoIP client, goto: [http://www.teradici.com/product-finder/client-downloads](http://www.teradici.com/product-finder/client-downloads)
+	* using the IP address found in the prevous step, you can now connect Teradici PCoIP client to the Teradici Standard Agent.
 
 ### What you need to do after usage
 
