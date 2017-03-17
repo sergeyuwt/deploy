@@ -7,28 +7,30 @@ This will deploy Teradici PCoIP Standard Agent on Microsoft Azure.
 ### What you need before you start the deployment
 
 - A Microsoft Azure account
-    * to create a free Azure account, goto [https://azure.microsoft.com/en-in/free/](https://azure.microsoft.com/en-in/free/)
+    * To create a free Azure account, goto [https://azure.microsoft.com/en-in/free/](https://azure.microsoft.com/en-in/free/)
 - A registration code for Teradici PCoIP Standard Agent
-    * to obtain a registration code for Teradici PCoIP Standard Agent, goto [todo](todo)
+    * To obtain a registration code for Teradici PCoIP Standard Agent, goto [todo](todo)
+- Teradici PCoIP Client
+    * To download Teradici PCoIP Client, goto [http://www.teradici.com/product-finder/client-downloads](http://www.teradici.com/product-finder/client-downloads)	
 
 ### To deploy
 
-- Click the button below to deploy.
+- Click the button below to deploy
 
 <a target="_blank" href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Ffwang-teradici%2Fdeploy%2Fmaster%2Fdev%2Fdomain-controller%2Fseperate%2Fazuredeploy.json">
     <img src="http://azuredeploy.net/deploybutton.png"/>
 </a>
 
-- In the Microsoft Azure login page, enter your account credentials and click "Sign in" button.
+- In the Microsoft Azure login page, enter your account credentials and click "Sign in" button
 - In the next screen
-    * for Subscription: select your subscription
-	* for Resource group: select "Create new", then enter a name (eg. teradici_pcoip)
-	* for Location: select a location
-	* for Admin User: enter a user name
-	* for Admin Password: enter a password
-	* for registration code: enter the registration code you obtained from Teradici
-	* check the checkbox "I agree to the terms and conditions stated above" and click "Purchase" button
-	* the deployment will now start, which will take about 20 minutes to complete
+    * For Subscription: select your subscription
+	* For Resource group: select "Create new", then enter a name (eg. teradici_pcoip)
+	* For Location: select a location
+	* For Admin User: enter a user name (note: the user name and password will be used later to establish the PCoIP session)
+	* For Admin Password: enter a password
+	* For registration code: enter the registration code you obtained from Teradici
+	* Check the checkbox "I agree to the terms and conditions stated above" and click "Purchase" button
+	* The deployment will now start, which will take about 20 minutes to complete
 	
 ### After the deployment is complete
 
@@ -38,8 +40,7 @@ This will deploy Teradici PCoIP Standard Agent on Microsoft Azure.
 	* Find the resource group whose name starts with ..., click on it
 	* Click the "Public IP address" resource. You will be shown the IP Address	
 - Connect Teradici PCoIP client to the Teradici PCoIP Standard Agent
-    * to download Teradici PCoIP client, goto [http://www.teradici.com/product-finder/client-downloads](http://www.teradici.com/product-finder/client-downloads)
-	* using the IP address found in the prevous step, you can now connect Teradici PCoIP client to the Teradici PCoIP Standard Agent.
+	* Using the IP address found in the prevous step, you can now connect Teradici PCoIP Client to the Teradici PCoIP Standard Agent.
 
 ### What you need to do after usage
 
