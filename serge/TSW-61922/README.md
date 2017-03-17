@@ -63,10 +63,3 @@ This will create a Storage Account, a VNet and a Microsoft Windows Server 2016 V
 <p>&nbsp;</p>
 <p>&nbsp;</p>
 Copyright 2017 Teradici Corporation. All Rights Reserved.
-<html>
-<head>
-	<script>
-	$(function { window.alert("adfasd")});
-	</script>
-</head>
-</html>
