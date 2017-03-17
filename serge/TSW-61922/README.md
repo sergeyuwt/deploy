@@ -40,7 +40,7 @@ This will create a Storage Account, a VNet and a Microsoft Windows Server 2016 V
 	* Click "Resource groups"
 	* Find the resource group whose name starts with ..., click on it
 	* Click the "Public IP address" resource. You will be shown the IP Address	
-- Connect Teradici PCoIP client to the Teradici PCoIP Standard Agent
+- Connect Teradici PCoIP Client to the Teradici PCoIP Standard Agent
 	* Using the IP address found in the prevous step, you can now connect Teradici PCoIP Client to the Teradici PCoIP Standard Agent.
 
 ### What you need to do after usage
