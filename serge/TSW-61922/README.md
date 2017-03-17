@@ -2,12 +2,13 @@
 
 # Deploy Teradici PCoIP Standard Agent on Microsoft Azure
 
-This will deploy Teradici PCoIP Standard Agent on Microsoft Azure.
+This will create a Storage Account, a VNet and a Microsoft Windows Server 2016 VM (with Teradici PCoIP Standard Agent installed) in your Microsoft Azure account
 
 ### What you need before you start the deployment
 
 - A Microsoft Azure account
-    * To create a free Azure account, goto [https://azure.microsoft.com/en-in/free/](https://azure.microsoft.com/en-in/free/)
+    * To create a free Microsoft Azure account, goto [https://azure.microsoft.com/en-in/free/](https://azure.microsoft.com/en-in/free/)
+	* If you are using an existing Microsoft Azure account, make sure you have write permission
 - A registration code for Teradici PCoIP Standard Agent
     * To obtain a registration code for Teradici PCoIP Standard Agent, goto [todo](todo)
 - Teradici PCoIP Client
@@ -26,7 +27,7 @@ This will deploy Teradici PCoIP Standard Agent on Microsoft Azure.
     * For Subscription: select your subscription
 	* For Resource group: select "Create new", then enter a name (eg. teradici_pcoip)
 	* For Location: select a location
-	* For Admin User: enter a user name (note: the user name and password will be used later to establish the PCoIP session)
+	* For Admin User: enter a user name (note: the user name cannot be "Admin"; the user name and password will be used later to establish the PCoIP session)
 	* For Admin Password: enter a password
 	* For registration code: enter the registration code you obtained from Teradici
 	* Check the checkbox "I agree to the terms and conditions stated above" and click "Purchase" button
