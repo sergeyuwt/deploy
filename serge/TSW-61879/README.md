@@ -2,7 +2,6 @@
 
 ### What the scripts do
 - The followings will be created / installed 
-	* A resource group
 	* A Storage account
 	* A VNet with network security groups defined
 	* A network interface with a public IP address
@@ -11,17 +10,17 @@
 
 ### How the scripts work
 - main entry point: azuredeploy.json, which invokes
-	* resources\storageAccount_template.json
-	* resources\network_template.json
-	* resources\nic_template.json
+	* ..\resources\storageAccount_template.json
+	* ..\resources\network_template.json
+	* ..\resources\nic_template.json
 	* vm_template.json
 	* vm_dsc_template.json, which uses
 	  * Install-PCoIPStdAgent.zip
 
 ### How to use the scripts
 - Used in github readme.md file by creating a deploy button
-	* encode the public URI to azuredeploy.json
-	* add the following codes to the readme.md file, replacing encoded_uri_to_azuredeploy.json with the one obtained in last step
+	* encode the public URI of the file azuredeploy.json
+	* add the following codes to the readme.md file, replacing encoded_uri_to_azuredeploy.json with the encoded uri obtained in last step
 	```
     <a target="_blank" href="https://portal.azure.com/#create/Microsoft.Template/uri/encoded_uri_to_azuredeploy.json"><img src="http://azuredeploy.net/deploybutton.png"/></a>    
     ```
@@ -29,11 +28,8 @@
 	* simple powershell code to deploy the template
     ```
 	Add-AzureRmAccount
-
 	$azureRGName = "resourcegroup1" #keep it short and with no special characters and no capitals
-
 	New-AzureRmResourceGroup -Name $azureRGName -Location "West US"
-
 	New-AzureRmResourceGroupDeployment -DeploymentName "sadeploy1" -ResourceGroupName $azureRGName -TemplateFile "azuredeploy.json"
     ```
 
