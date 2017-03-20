@@ -1,6 +1,6 @@
 # Deploy Teradici PCoIP Standard Agent on Microsoft Azure
 
-### What the scripts do
+### What the templates do
 - The followings will be created / installed 
 	* A Storage account
 	* A VNet with network security groups defined
@@ -8,7 +8,7 @@
 	* A Windows Server 2016 VM
 	* Teradici PCoIP Standard Agent 2.8
 
-### How the scripts work
+### Structure of the templates
 - main entry point: azuredeploy.json, which invokes
 	* ..\resources\storageAccount_template.json
 	* ..\resources\network_template.json
@@ -17,7 +17,7 @@
 	* vm_dsc_template.json, which uses
 	  * Install-PCoIPStdAgent.zip
 
-### How to use the scripts
+### How to use the templates
 - Used in github readme.md file by creating a deploy button
 	* encode the public URI of the file azuredeploy.json
 	* add the following codes to the readme.md file, replacing encoded_uri_to_azuredeploy.json with the encoded uri obtained in last step
