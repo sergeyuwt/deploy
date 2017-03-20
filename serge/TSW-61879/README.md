@@ -1,5 +1,3 @@
-# Under Development
-
 # Deploy Teradici PCoIP Standard Agent on Microsoft Azure
 
 ### What the scripts do
@@ -36,7 +34,7 @@
 
 	New-AzureRmResourceGroup -Name $azureRGName -Location "West US"
 
-	New-AzureRmResourceGroupDeployment -DeploymentName "saploy1" -ResourceGroupName $azureRGName -TemplateFile "azuredeploy.json"
+	New-AzureRmResourceGroupDeployment -DeploymentName "sadeploy1" -ResourceGroupName $azureRGName -TemplateFile "azuredeploy.json"
     ```
 
   
