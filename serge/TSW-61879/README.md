@@ -22,13 +22,14 @@
 
 ### How to use the scripts
 - Used in github readme.md file by creating a deploy button
-    * encode the public URI to azuredeploy.json
+	* encode the public URI to azuredeploy.json
 	* add the following codes to the readme.md file, replacing encoded_uri_to_azuredeploy.json with the one obtained in last step
 	```
     <a target="_blank" href="https://portal.azure.com/#create/Microsoft.Template/uri/encoded_uri_to_azuredeploy.json"><img src="http://azuredeploy.net/deploybutton.png"/></a>    
     ```
 - Used with powershell
-    * simple powershell code to deploy the template
+	* simple powershell code to deploy the template
+    ```
 	Add-AzureRmAccount
 
 	$azureRGName = "resourcegroup1" #keep it short and with no special characters and no capitals
@@ -36,6 +37,7 @@
 	New-AzureRmResourceGroup -Name $azureRGName -Location "West US"
 
 	New-AzureRmResourceGroupDeployment -DeploymentName "saploy1" -ResourceGroupName $azureRGName -TemplateFile "azuredeploy.json"
+    ```
 
   
 <p>&nbsp;</p>
