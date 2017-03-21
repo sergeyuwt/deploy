@@ -13,7 +13,7 @@
 	* Teradici PCoIP Standard Agent 2.8
 
 ### Structure of the templates
-- main entry point: azuredeploy.json, which links to
+- Main entry point: azuredeploy.json, which links to
 	* ..\resources\storageAccount_template.json
 	* ..\resources\network_template.json
 	* ..\resources\nic_template.json
