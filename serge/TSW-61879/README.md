@@ -3,7 +3,11 @@
 ### What the templates do
 - The followings will be created / installed 
 	* A Storage account
-	* A VNet with network security groups defined
+	* A VNet with following ports open:
+	  * 3389 TCP (for RDP)
+	  * 443 TCP (for https)
+	  * 60443 TCP (for PCoIP diagnostic)
+	  * 4172 TCP (for PCoIP session)
 	* A network interface with a public IP address
 	* A Windows Server 2016 VM
 	* Teradici PCoIP Standard Agent 2.8
@@ -25,7 +29,7 @@
     <a target="_blank" href="https://portal.azure.com/#create/Microsoft.Template/uri/encoded_uri_to_azuredeploy.json"><img src="http://azuredeploy.net/deploybutton.png"/></a>    
     ```
 - Used with powershell
-	* simple powershell code to deploy the template
+	* simple powershell code to deploy the templates
     ```
 	Add-AzureRmAccount
 	$azureRGName = "resourcegroup1" #keep it short and with no special characters and no capitals
