@@ -7,7 +7,7 @@
 	  * 3389 TCP (for RDP)
 	  * 443 TCP (for https)
 	  * 60443 TCP (for PCoIP diagnostic)
-	  * 4172 TCP and UDP(for PCoIP session)
+	  * 4172 TCP and UDP (for PCoIP session)
 	* A network interface with a public IP address
 	* A Windows Server 2016 VM
 	* Teradici PCoIP Standard Agent 2.8
