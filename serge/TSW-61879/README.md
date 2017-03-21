@@ -33,7 +33,7 @@
     https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Ffwang-teradici%2Fdeploy%2Fmaster%2Fdev%2Fdomain-controller%2Fseperate%2Fazuredeploy.json
     ```
 - By using powershell
-	* simple powershell code to deploy the templates
+	* Simple powershell code to deploy the templates
     ```
 	Add-AzureRmAccount
 	$azureRGName = "resourcegroup1" #keep it short and with no special characters and no capitals
