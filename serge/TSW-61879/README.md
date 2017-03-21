@@ -13,7 +13,7 @@
 	* Teradici PCoIP Standard Agent 2.8
 
 ### Structure of the templates
-- main entry point: azuredeploy.json, which invokes
+- main entry point: azuredeploy.json, which links to
 	* ..\resources\storageAccount_template.json
 	* ..\resources\network_template.json
 	* ..\resources\nic_template.json
@@ -22,11 +22,15 @@
 	  * Install-PCoIPStdAgent.zip
 
 ### How to use the templates
-- By using https://portal.azure.com/#create/Microsoft.Template/uri/
-	* encode the public URI of the file azuredeploy.json
-	* append it to the following uri:
+- By using the Azure template deployment URI: https://portal.azure.com/#create/Microsoft.Template/uri/
+	* Encode the public URI of the file azuredeploy.json. example
 	```
-    https://portal.azure.com/#create/Microsoft.Template/uri/
+	URI: https://raw.githubusercontent.com/fwang-teradici/deploy/master/dev/domain-controller/seperate/azuredeploy.json
+	Encoded URI: https%3A%2F%2Fraw.githubusercontent.com%2Ffwang-teradici%2Fdeploy%2Fmaster%2Fdev%2Fdomain-controller%2Fseperate%2Fazuredeploy.json
+	```
+	* Append the encoded URI to the Azure template deployment URI. example
+	```
+    https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Ffwang-teradici%2Fdeploy%2Fmaster%2Fdev%2Fdomain-controller%2Fseperate%2Fazuredeploy.json
     ```
 - By using powershell
 	* simple powershell code to deploy the templates
