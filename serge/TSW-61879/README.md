@@ -22,13 +22,13 @@
 	  * Install-PCoIPStdAgent.zip
 
 ### How to use the templates
-- By using the Azure template deployment URI: https://portal.azure.com/#create/Microsoft.Template/uri/
+- By using Azure portal: https://portal.azure.com/#create/Microsoft.Template/uri/
 	* Encode the public URI of the file azuredeploy.json. example
 	```
 	URI: https://raw.githubusercontent.com/fwang-teradici/deploy/master/dev/domain-controller/seperate/azuredeploy.json
 	Encoded URI: https%3A%2F%2Fraw.githubusercontent.com%2Ffwang-teradici%2Fdeploy%2Fmaster%2Fdev%2Fdomain-controller%2Fseperate%2Fazuredeploy.json
 	```
-	* Append the encoded URI to the Azure template deployment URI. example
+	* Append the encoded URI to the Azure portal deployment URI. example
 	```
     https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Ffwang-teradici%2Fdeploy%2Fmaster%2Fdev%2Fdomain-controller%2Fseperate%2Fazuredeploy.json
     ```
