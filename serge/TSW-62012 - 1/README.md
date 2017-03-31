@@ -30,7 +30,7 @@ The following procedure will create a new Resource Group with a Storage Account,
 	* For Admin User: Enter a user name (Note: the user name cannot be 'Admin'; the user name and password will be used later to establish the PCoIP session)
 	* For Admin Password: Enter a password
 	* For Registration Code: Enter the Registration Code you obtained from Teradici
-	* Check the checkbox **I agree to the terms and conditions stated above** and click **Purchase**
+	* Check the checkbox **I agree to the terms and conditions stated above** and click **Purchase** (Note: You will be charged by Microsoft to your Azure account for this deployment. For mor details, go to [https://azure.microsoft.com/pricing/](https://azure.microsoft.com/pricing/)
 - The deployment will now start, which will take about 15 minutes to complete.
 	
 ### After the deployment is complete
@@ -45,7 +45,7 @@ The following procedure will create a new Resource Group with a Storage Account,
 
 ### What you need to do after usage
 
-- Delete the Teradici PCoIP Standard Agent deployment from your Microsoft Azure account:
+- Delete the Teradici PCoIP Standard Agent deployment from your Microsoft Azure account (Note: You will be continued to be charged by Microsoft to your Azure account otherwise):
     * Log in to [https://portal.azure.com](https://portal.azure.com) using your account credentials.
     * Click **Resource groups**.
     * Find the resource group name you entered during the deployment, right-click on it, then select **Delete**.
