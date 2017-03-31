@@ -3,12 +3,12 @@
 ### What the templates do
 - The followings will be created / installed 
 	* A Storage account
-	* A VNet with following ports open:
+	* A VNet
+	* A network interface with a public IP address,  with following ports open:
 	  * 3389 TCP (for RDP)
 	  * 443 TCP (for https)
 	  * 60443 TCP (for PCoIP diagnostics)
 	  * 4172 TCP and UDP (for PCoIP sessions)
-	* A network interface with a public IP address
 	* A Windows Server 2016 VM
 	* Teradici PCoIP Standard Agent 2.8
 
