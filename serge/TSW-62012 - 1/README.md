@@ -30,7 +30,7 @@ The following procedure will create a new Resource Group with a Storage Account,
 	* For Admin User: Enter a user name (Note: the user name cannot be 'Admin'; the user name and password will be used later to establish the PCoIP session)
 	* For Admin Password: Enter a password
 	* For Registration Code: Enter the Registration Code you obtained from Teradici
-	* Check the checkbox **I agree to the terms and conditions stated above** and click **Purchase** (Note: You will be charged by Microsoft to your Azure account for this deployment. For more details, go to [https://azure.microsoft.com/pricing/](https://azure.microsoft.com/pricing/)
+	* Check the checkbox **I agree to the terms and conditions stated above** and click **Purchase** (Note: You will be charged by Microsoft to your Azure account for this deployment. For more information, go to [https://azure.microsoft.com/pricing/](https://azure.microsoft.com/pricing/)
 - The deployment will now start, which will take about 15 minutes to complete.
 	
 ### After the deployment is complete
