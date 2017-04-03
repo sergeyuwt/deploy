@@ -30,7 +30,7 @@ Configuration InstallPCoIPAgent
 
             #TODO: Check for other agent types as well?
             TestScript = {
-				if ( Get-Item -path "Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\PCoIP Standard Agent" -ErrorAction SilentlyContinue )  {
+				if ( Get-Item -path "Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\PCoIP Graphics Agent" -ErrorAction SilentlyContinue )  {
 					return $true
 				}else {
 					return $false

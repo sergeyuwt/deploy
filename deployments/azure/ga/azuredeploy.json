@@ -40,7 +40,7 @@
     "subnetName": "stdAgentVM-subnet",
     "vmNamePrefix": "stdAgentVM",
     "nsgName": "pcoip-agent-nsg",
-    "agentUrl": "https://teradeploy.blob.core.windows.net/binaries/PCoIP_agent_release_installer_2.8.0.5813_standard.exe"
+    "agentUrl": "https://teradeploy.blob.core.windows.net/binaries/PCoIP_agent_release_installer_2.8.0.5614_graphics.exe"
   },
   "resources": [
     {
