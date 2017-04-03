@@ -1,0 +1,51 @@
+{
+  "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json",
+  "contentVersion": "1.0.0.0",
+  "parameters" : {
+    "vmName": {
+      "type": "string",
+      "metadata": {
+        "description": "The Computer Name that this extension will be deployed on."
+      }
+    },
+    "sourceUrl": {
+      "type": "string",
+      "metadata": {
+        "description": "NVIDIA GRID driver URL"
+      }
+    },
+    "_artifactsLocation": {
+      "type": "string",
+      "metadata": {
+        "description": "The location of DSC module, that the template depends on"
+      }
+    }      
+  },  
+  "resources": [
+    {
+      "type": "Microsoft.Compute/virtualMachines/extensions",
+      "name": "[concat(parameters('vmName'), '/NvidiaDscExtension')]", 
+      "apiVersion": "2017-03-30",
+      "location": "[resourceGroup().location]",
+      "properties": {
+        "publisher": "Microsoft.Powershell",
+        "type": "DSC",
+        "typeHandlerVersion": "2.9",
+        "autoUpgradeMinorVersion": "true",
+        "settings": {
+      	  "configuration": {
+		        "url": "[concat(parameters('_artifactsLocation'), '/ga/', 'Install-NvidiaDriver.zip')]",
+			      "script": "Install-NvidiaDriver.ps1",
+			      "function": "InstallNvidiaDriver"
+		      },                
+		      "configurationArguments": {
+		        "sourceUrl": "[parameters('sourceUrl')]"
+		      },                              
+          "privacy": {
+            "DataCollection": "Disable"
+          }
+        }        
+      }
+    }      
+  ]
+}

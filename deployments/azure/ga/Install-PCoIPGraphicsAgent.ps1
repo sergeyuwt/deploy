@@ -1,4 +1,4 @@
-# Install-PCoIPStdAgent.ps1
+# Install-PCoIPGraphicsAgent.ps1
 Configuration InstallPCoIPAgent
 {
 	param(
