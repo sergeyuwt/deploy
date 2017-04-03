@@ -176,7 +176,7 @@
       "properties": {
         "mode": "Incremental",
         "templateLink": {
-          "uri": "[concat(parameters('_artifactsLocation'), '/ga/', 'vm_install_nvidia_dsc.json')]",
+          "uri": "[concat(parameters('_artifactsLocation'), '/ga/', 'vm_install_nvidia_driver_dsc.json')]",
           "contentVersion": "1.0.0.0"
         },
         "parameters": {
