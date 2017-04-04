@@ -12,7 +12,7 @@ Configuration InstallNvidiaDriver
         [String] $nvidiaInstaller = "nvidia-driver.zip"
     )
 	
-	Import-DscResource -ModuleName xPSDesiredStateConfiguration
+	#Import-DscResource -ModuleName xPSDesiredStateConfiguration
 
     Node "localhost"
     {
