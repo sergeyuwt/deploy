@@ -21,12 +21,6 @@ Configuration InstallNvidiaDriver
             RebootNodeIfNeeded = $true
         }
 
-		xRemoteFile Download_Nvidia_Installer
-		{
-			Uri = "$sourceUrl"
-			DestinationPath = "$LocalDLPath\$nvidiaInstaller"
-		}
-
         Script InstallNvidiaDriver
         {
             DependsOn  = "[xRemoteFile]Download_Nvidia_Installer"
@@ -37,6 +31,11 @@ Configuration InstallNvidiaDriver
 			}
 
             SetScript  = {
+                Write-Verbose "Downloading Nvidia driver"
+                $nvidiaGetResp = Invoke-WebRequest $sourceUrl -UseBasicParsing
+                [io.file]::WriteAllBytes("$LocalDLPath\$nvidiaInstaller", $nvidiaGetResp.Content)
+                #Unzip "D:\Downloadinstallers\NVAzureDriver.zip" "D:\NVIDIAazure"
+
                 Write-Verbose "Unzipping Nvidia driver"
 
 				$localNvidiaPath = "$env:systemdrive\nvidia"
