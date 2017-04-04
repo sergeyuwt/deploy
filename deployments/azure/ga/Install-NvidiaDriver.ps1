@@ -3,7 +3,7 @@ Configuration InstallNvidiaDriver
 {
 	param(
      	[Parameter(Mandatory=$false)]
-     	[String] $sourceUrl ="https://teradeploy.blob.core.windows.net/binaries/369.71_win10_64bit_international-1015172-02.zip"
+     	[String] $sourceUrl ="https://teradeploy.blob.core.windows.net/binaries/369.95_grid_win10_server2016_64bit_international.exe"
     )
 	
     Node "localhost"
@@ -33,19 +33,13 @@ Configuration InstallNvidiaDriver
 
             SetScript  = {
                 Write-Verbose "Downloading Nvidia driver"
-                $destFile = "c:\WindowsAzure\NvidiaInstaller\nvidia-driver.zip"
                 $sourceUrl = $using:sourceUrl
+                $installerFileName = [System.IO.Path]::GetFileName($sourceUrl)
+                $destFile = "c:\WindowsAzure\NvidiaInstaller\" + $installerFileName
                 Invoke-WebRequest $sourceUrl -OutFile $destFile
 
-                Write-Verbose "Unzipping Nvidia driver"
-				$localNvidiaPath = "c:\nvidia"
-                Expand-Archive $destFile -DestinationPath $localNvidiaPath -Force
-
-                Write-Verbose "Starting to Install Nvidia driver"
-                Set-Location $localNvidiaPath
-                Set-ExecutionPolicy Unrestricted -force
-                .\setup.exe -s -noreboot -clean
-                Start-Sleep -s 180
+                Write-Verbose "Installing Nvidia driver"
+                Start-Process -FilePath $destFile -ArgumentList "/S /nopostreboot" -PassThru -Wait
 
                 Write-Verbose "Finished Nvidia driver Installation"
             }
