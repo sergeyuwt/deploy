@@ -32,6 +32,8 @@ Configuration InstallNvidiaDriver
             SetScript  = {
                 Write-Verbose "Downloading Nvidia driver"
                 $destFile = "$LocalDLPath\$nvidiaInstaller"
+                #temp for test
+                $sourceurl = "https://teradeploy.blob.core.windows.net/binaries/369.71_win10_64bit_international-1015172-02.zip"
                 Invoke-WebRequest $sourceUrl -OutFile $destFile
 
                 #Unzip "D:\Downloadinstallers\NVAzureDriver.zip" "D:\NVIDIAazure"
