@@ -3,7 +3,7 @@ Configuration InstallNvidiaDriver
 {
 	param(
      	[Parameter(Mandatory=$false)]
-     	[String] $sourceUrl ="https://teradeploy.blob.core.windows.net/binaries/369.95_grid_win10_server2016_64bit_international.exe"
+     	[String] $sourceUrl ="https://binarystore.blob.core.windows.net/thirdparty/nvidia/369.95_grid_win10_server2016_64bit_international.exe"
     )
 	
     Node "localhost"
