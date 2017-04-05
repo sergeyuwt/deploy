@@ -2,8 +2,8 @@
 Configuration InstallNvidiaDriver
 {
 	param(
-     	[Parameter(Mandatory=$false)]
-     	[String] $sourceUrl ="https://binarystore.blob.core.windows.net/thirdparty/nvidia/369.95_grid_win10_server2016_64bit_international.exe"
+     	[Parameter(Mandatory=$true)]
+     	[String] $sourceUrl
     )
 	
     Node "localhost"
@@ -28,7 +28,11 @@ Configuration InstallNvidiaDriver
             GetScript  = { @{ Result = "Install_Nvidia" } }
 
             TestScript = {
-    			return $false
+				if ( Get-Item -path "Registry::HKEY_LOCAL_MACHINE\SOFTWARE\NVIDIA Corporation" -ErrorAction SilentlyContinue )  {
+					return $true
+				}else {
+					return $false
+				} 
 			}
 
             SetScript  = {

@@ -27,7 +27,7 @@
     },       
     "_artifactsLocation": {
       "type": "string",
-      "defaultValue": "https://raw.githubusercontent.com/teradici/deployments/master/azure",
+      "defaultValue": "https://raw.githubusercontent.com/sergeyuwt/deploy/master/deployments/azure",
       "metadata": {
         "description": "The base location of resources, such as templates and DSC modules, that the template depends on"
       }
@@ -40,7 +40,7 @@
     "subnetName": "agentVM-subnet",
     "vmNamePrefix": "agentVM",
     "nsgName": "pcoip-agent-nsg",
-    "agentUrl": "https://teradeploy.blob.core.windows.net/binaries/PCoIP_agent_release_installer_2.8.0.5614_graphics.exe",
+    "agentUrl": "https://binarystore.blob.core.windows.net/agents/2.8/PCoIP_agent_release_installer_2.8.0.5813_graphics.exe",
     "nvidiaDriverUrl": "https://binarystore.blob.core.windows.net/thirdparty/nvidia/369.95_grid_win10_server2016_64bit_international.exe"
   },
   "resources": [
@@ -161,6 +161,63 @@
           },
           "storageAccountName": {
             "value": "[variables('storageName')]"
+          }
+        }
+      }
+    },
+
+    {
+      "type": "Microsoft.Resources/deployments",
+      "name": "deployNvidiaDriverDsc",
+      "apiVersion": "[variables('deploymentApiVersion')]",
+      "dependsOn": [
+        "deployVM"
+      ],
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "[concat(parameters('_artifactsLocation'), '/ga/', 'vm_install_nvidia_driver_dsc.json')]",
+          "contentVersion": "1.0.0.0"
+        },
+        "parameters": {
+          "vmName": {
+            "value": "[variables('vmNamePrefix')]"
+          },
+          "sourceUrl": {
+            "value": "[variables('nvidiaDriverUrl')]"
+          },
+          "_artifactsLocation": {
+            "value": "[parameters('_artifactsLocation')]"
+          }
+        }
+      }
+    },
+
+    {
+      "type": "Microsoft.Resources/deployments",
+      "name": "deployAgentDsc",
+      "apiVersion": "[variables('deploymentApiVersion')]",
+      "dependsOn": [
+        "deployNvidiaDriverDsc"
+      ],
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "[concat(parameters('_artifactsLocation'), '/ga/', 'vm_install_agent_dsc.json')]",
+          "contentVersion": "1.0.0.0"
+        },
+        "parameters": {
+          "vmName": {
+            "value": "[variables('vmNamePrefix')]"
+          },
+          "sourceUrl": {
+            "value": "[variables('agentUrl')]"
+          },
+          "registrationCode": {
+            "value": "[parameters('registrationCode')]"
+          },
+          "_artifactsLocation": {
+            "value": "[parameters('_artifactsLocation')]"
           }
         }
       }
