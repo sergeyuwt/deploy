@@ -34,13 +34,13 @@
         "autoUpgradeMinorVersion": "true",
         "settings": {
       	  "configuration": {
-		        "url": "[concat(parameters('_artifactsLocation'), '/ga/', 'Install-NvidiaDriver.zip')]",
-			      "script": "Install-NvidiaDriver.ps1",
-			      "function": "InstallNvidiaDriver"
-		      },                
-		      "configurationArguments": {
-		        "sourceUrl": "[parameters('sourceUrl')]"
-		      },                              
+		      "url": "[concat(parameters('_artifactsLocation'), '/ga/', 'Install-NvidiaDriver.zip')]",
+			  "script": "Install-NvidiaDriver.ps1",
+			  "function": "InstallNvidiaDriver"
+		  },                
+		  "configurationArguments": {
+		    "sourceUrl": "[parameters('sourceUrl')]"
+		  },                              
           "privacy": {
             "DataCollection": "Disable"
           }

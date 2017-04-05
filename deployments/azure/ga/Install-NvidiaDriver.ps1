@@ -39,7 +39,7 @@ Configuration InstallNvidiaDriver
                 Invoke-WebRequest $sourceUrl -OutFile $destFile
 
                 Write-Verbose "Installing Nvidia driver"
-                Start-Process -FilePath $destFile -ArgumentList "/S /nopostreboot" -PassThru -Wait
+                Start-Process -FilePath $destFile -ArgumentList "/s" -Wait
 
                 Write-Verbose "Finished Nvidia driver Installation"
             }
