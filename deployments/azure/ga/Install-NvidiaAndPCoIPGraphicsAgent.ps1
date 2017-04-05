@@ -19,7 +19,14 @@ Configuration InstallPCoIPAgent
             RebootNodeIfNeeded = $true
         }
 
-        File Download_Directory 
+        File Nvidia_Download_Directory 
+        {
+            Ensure          = "Present"
+            Type            = "Directory"
+            DestinationPath = "C:\WindowsAzure\NvidiaInstaller"
+        }
+
+        File Agent_Download_Directory 
         {
             Ensure          = "Present"
             Type            = "Directory"
@@ -28,7 +35,7 @@ Configuration InstallPCoIPAgent
 
         Script InstallNvidiaDriver
         {
-            DependsOn  = "[File]Download_Directory"
+            DependsOn  = "[File]Nvidia_Download_Directory"
 
             GetScript  = { @{ Result = "Install_Nvidia" } }
 
@@ -56,7 +63,7 @@ Configuration InstallPCoIPAgent
 
         Script Install_PCoIPAgent
         {
-            DependsOn  = @("[File]Download_Directory","[Script]InstallNvidiaDriver")
+            DependsOn  = @("[File]Agent_Download_Directory","[Script]InstallNvidiaDriver")
             GetScript  = { @{ Result = "Install_PCoIPAgent" } }
 
             #TODO: Check for other agent types as well?
