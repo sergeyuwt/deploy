@@ -52,7 +52,7 @@
 		      },                
 		      "configurationArguments": {
 		        "gaSourceUrl": "[parameters('gaSourceUrl')]",
-                "nvidiaSourceUrl: "[parameters('nvidiaSourceUrl')]",
+                "nvidiaSourceUrl": "[parameters('nvidiaSourceUrl')]",
                 "registrationCode": "[parameters('registrationCode')]"
 		      },                              
           "privacy": {
