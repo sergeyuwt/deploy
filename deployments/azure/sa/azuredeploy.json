@@ -27,26 +27,24 @@
     },       
     "_artifactsLocation": {
       "type": "string",
-      "defaultValue": "https://raw.githubusercontent.com/teradici/deployments/master/azure",
+      "defaultValue": "https://teamthunder.blob.core.windows.net/internal-testing/deployments/master/azure",
       "metadata": {
         "description": "The base location of resources, such as templates and DSC modules, that the template depends on"
       }
     }
-  },
+  },  
   "variables": {
     "deploymentApiVersion": "2016-09-01",
     "stdStorageName": "[replace(replace(tolower(concat('pcagent', uniquestring(resourceGroup().id))), '-',''),'.','')]",
-    "vnetName": "pcoip-vnet",
-    "subnetName": "stdAgentVM-subnet",
     "vmNamePrefix": "stdAgentVM",
-    "nsgName": "pcoip-agent-nsg",
+    "nicName": "agentNic",
     "agentUrl": "https://teradeploy.blob.core.windows.net/binaries/PCoIP_agent_release_installer_2.8.0.5813_standard.exe"
-  },
+  },  
   "resources": [
     {
       "type": "Microsoft.Resources/deployments",
       "name": "deploySA",
-      "apiVersion": "[variables('deploymentApiVersion')]",
+      "apiVersion": "[variables('deploymentApiVersion')]",        
       "properties": {
         "mode": "Incremental",
         "templateLink": {
@@ -57,45 +55,19 @@
           "storageAccountName": {
             "value": "[variables('stdStorageName')]"
           }
-        }
-      }
-    },
-
-    {
-      "type": "Microsoft.Resources/deployments",
-      "name": "depolyAgentNsg",
-      "apiVersion": "[variables('deploymentApiVersion')]",
-      "properties": {
-        "mode": "Incremental",
-        "templateLink": {
-          "uri": "[concat(parameters('_artifactsLocation'), '/resources/', 'pcoip_agent_nsg.json')]",
-          "contentVersion": "1.0.0.0"
-        },
-        "parameters": {
-          "nsgName": {
-            "value": "[variables('nsgName')]"
-          }
-        }
+        }         
       }
     },
 
     {
       "type": "Microsoft.Resources/deployments",
       "name": "depolyVNet",
-      "apiVersion": "[variables('deploymentApiVersion')]",
+      "apiVersion": "[variables('deploymentApiVersion')]",        
       "properties": {
         "mode": "Incremental",
         "templateLink": {
           "uri": "[concat(parameters('_artifactsLocation'), '/resources/', 'virtual_network.json')]",
           "contentVersion": "1.0.0.0"
-        },
-        "parameters": {
-          "vnetName": {
-            "value": "[variables('vnetName')]"
-          },
-          "subnetName": {
-            "value": "[variables('subnetName')]"
-          }
         }
       }
     },
@@ -103,10 +75,9 @@
     {
       "type": "Microsoft.Resources/deployments",
       "name": "depolyNIC",
-      "apiVersion": "[variables('deploymentApiVersion')]",
+      "apiVersion": "[variables('deploymentApiVersion')]",        
       "dependsOn": [
-        "depolyAgentNsg",
-        "depolyVNet"
+        "depolyVNet"        
       ],
       "properties": {
         "mode": "Incremental",
@@ -115,29 +86,26 @@
           "contentVersion": "1.0.0.0"
         },
         "parameters": {
-          "vmName": {
-            "value": "[variables('vmNamePrefix')]"
+          "domainNameLabel": {
+            "value": "[tolower(replace(concat(variables('vmNamePrefix'), '-', uniqueString(resourceGroup().name)), '.',''))]"
           },
-          "nsgName": {
-            "value": "[variables('nsgName')]"
+          "subnetId": {
+            "value": "[reference('depolyVNet').outputs.subnetRef.value]"
           },
-          "vnetName": {
-            "value": "[variables('vnetName')]"
-          },
-          "subnetName": {
-            "value": "[variables('subnetName')]"
+          "nicName": {
+            "value": "[variables('nicName')]"
           }
-        }
+        }         
       }
     },
 
     {
       "type": "Microsoft.Resources/deployments",
       "name": "deployVM",
-      "apiVersion": "[variables('deploymentApiVersion')]",
+      "apiVersion": "[variables('deploymentApiVersion')]",        
       "dependsOn": [
         "deploySA",
-        "depolyNIC"
+        "depolyNIC"       
       ],
       "properties": {
         "mode": "Incremental",
@@ -156,19 +124,19 @@
             "value": "[parameters('adminPassword')]"
           },
           "nicName": {
-            "value": "[reference('depolyNIC').outputs.nicName.value]"
+            "value": "[variables('nicName')]"
           },
           "storageAccountName": {
-            "value": "[variables('stdStorageName')]"
+            "value": "[variables('stdStorageName')]"            
           }
-        }
+        }         
       }
     },
 
     {
       "type": "Microsoft.Resources/deployments",
       "name": "deployStdAgentDsc",
-      "apiVersion": "[variables('deploymentApiVersion')]",
+      "apiVersion": "[variables('deploymentApiVersion')]",        
       "dependsOn": [
         "deployVM"
       ],
@@ -191,9 +159,9 @@
           "_artifactsLocation": {
             "value": "[parameters('_artifactsLocation')]"
           }
-        }
+        }         
       }
-    }
+    }    
   ],
 
   "outputs": {

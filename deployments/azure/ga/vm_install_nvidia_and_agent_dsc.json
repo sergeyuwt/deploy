@@ -52,13 +52,20 @@
 		      },                
 		      "configurationArguments": {
 		        "gaSourceUrl": "[parameters('gaSourceUrl')]",
-                "nvidiaSourceUrl": "[parameters('nvidiaSourceUrl')]",
-                "registrationCode": "[parameters('registrationCode')]"
+                "nvidiaSourceUrl": "[parameters('nvidiaSourceUrl')]"
 		      },                              
-          "privacy": {
-            "DataCollection": "Disable"
+              "privacy": {
+                "DataCollection": "Disable"
+              }
+         },
+        "protectedSettings": {
+          "configurationArguments": {
+            "registrationCodeCredential": {
+              "userName": "dummyUser",
+              "password": "[parameters('registrationCode')]"
+            }
           }
-        }        
+        }                 
       }
     }      
   ]

@@ -8,8 +8,8 @@ Configuration InstallPCoIPAgent
      	[Parameter(Mandatory=$true)]
      	[String] $nvidiaSourceUrl,
     
-     	[Parameter(Mandatory=$false)]
-     	[String] $registrationCode     	
+     	[Parameter(Mandatory=$true)]
+     	[PSCredential] $registrationCodeCredential
 	)
 	
     Node "localhost"
@@ -40,7 +40,7 @@ Configuration InstallPCoIPAgent
             GetScript  = { @{ Result = "Install_Nvidia" } }
 
             TestScript = {
-				if ( Get-Item -path "Registry::HKEY_LOCAL_MACHINE\SOFTWARE\NVIDIA Corporation\Installer2\Drivers" -ErrorAction SilentlyContinue )  {
+				if ( Test-Path -path "HKLM:\SOFTWARE\NVIDIA Corporation\Installer2\Drivers")  {
 					return $true
 				}else {
 					return $false
@@ -68,7 +68,7 @@ Configuration InstallPCoIPAgent
 
             #TODO: Check for other agent types as well?
             TestScript = {
-				if ( Get-Item -path "Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\PCoIP Graphics Agent" -ErrorAction SilentlyContinue )  {
+				if ( Test-Path -path "HKLM:\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\PCoIP Graphics Agent")  {
 					return $true
 				}else {
 					return $false
@@ -105,8 +105,8 @@ Configuration InstallPCoIPAgent
 					}
 				}
 
-                #register
-                $registrationCode = $using:registrationCode
+                #register code is stored at the password property of PSCredential object
+                $registrationCode = ($using:registrationCodeCredential).GetNetworkCredential().password
                 if ($registrationCode) {
 					# Insert a delay before activating license
 	                cd "C:\Program Files (x86)\Teradici\PCoIP Agent"

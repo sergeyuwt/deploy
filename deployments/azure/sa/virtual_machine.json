@@ -35,7 +35,12 @@
     },
     "vmSize": {
       "type": "string",
-      "defaultValue": "Standard_D2_v2",
+      "defaultValue": "Standard_A1",
+      "allowedValues": [
+        "Standard_A1",
+        "Standard_A2",
+        "Standard_A4"
+      ],
       "metadata": {
         "description": "Virtual Machine Size"
       }

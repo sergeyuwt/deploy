@@ -2,42 +2,31 @@
   "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json",
   "contentVersion": "1.0.0.0",
   "parameters": {
-    "vmName": {
+    "domainNameLabel": {
       "type": "string",
+      "defaultValue": "pcoip",
+      "maxLength": 50,
       "metadata": {
-        "description": "a name prefix of a virtual machine which the nic will be attached to."
+        "description": "DNS Label for the Public IP. Must be lowercase. It should match with the following regular expression: ^[a-z][a-z0-9-]{1,61}[a-z0-9]$ or it will raise an error."
       }
     },
-
-    "nsgName": {
+    "subnetId": {
       "type": "string",
       "metadata": {
-        "description": "name of network security group that will be associated to this network interface."
+        "description": "ID of sub network which this network interface belongs to."
       }
     },
-
-    "vnetName": {
+    "nicName": {
       "type": "string",
       "metadata": {
-        "description": "name of virtual network which the network interface will be belonged to."
-      }
-    },
-
-    "subnetName": {
-      "type": "string",
-      "metadata": {
-        "description": "name of sub network which the network interface will be belonged to."
+        "description": "Network Interface Name."
       }
     }
-  },
+  },  
 
   "variables": {
     "apiVersion": "2016-12-01",
-    "nicName": "[concat(parameters('vmName'), '-nic')]",
-    "pipName": "[concat(parameters('vmName'), '-pip')]",
-    "domainNameLabel": "[tolower(replace(concat(parameters('vmName'), '-', uniqueString(resourceGroup().name)), '.',''))]",
-    "subnetId": "[concat(resourceId('Microsoft.Network/virtualNetworks', parameters('vnetName')),'/subnets/',parameters('subnetName'))]",
-    "nsgId": "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('nsgName'))]"
+    "pipName": "[concat(parameters('nicName'), '_PubIP')]" 
   },
 
   "resources": [
@@ -52,15 +41,15 @@
       "properties": {
         "publicIPAllocationMethod": "Dynamic",
         "dnsSettings": {
-          "domainNameLabel": "[variables('domainNameLabel')]"
+          "domainNameLabel": "[parameters('domainNameLabel')]"
         }
       }
     },
-
+      
     {
       "apiVersion": "[variables('apiVersion')]",
       "type": "Microsoft.Network/networkInterfaces",
-      "name": "[variables('nicName')]",
+      "name": "[parameters('nicName')]",
       "location": "[resourceGroup().location]",
       "tags": {
         "displayName": "NetworkInterface - PCoIP Agent"
@@ -69,10 +58,6 @@
         "[concat('Microsoft.Network/publicIPAddresses/', variables('pipName'))]"
       ],
       "properties": {
-        "networkSecurityGroup": {
-          "id": "[variables('nsgId')]"
-        },
-
         "ipConfigurations": [
           {
             "name": "ipconfig",
@@ -82,7 +67,7 @@
               },
               "privateIPAllocationMethod": "Dynamic",
               "subnet": {
-                "id": "[variables('subnetId')]"
+                "id": "[parameters('subnetId')]"
               }
             }
           }
@@ -95,10 +80,6 @@
     "vm_fqdn": {
       "type": "string",
       "value": "[reference(resourceId ('Microsoft.Network/publicIPAddresses', variables('pipName')), variables('apiVersion')).dnsSettings.fqdn]"
-    },
-    "nicName": {
-      "type":  "string",
-      "value": "[variables('nicName')]"
     }
   }  
 }
