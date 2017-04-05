@@ -37,10 +37,8 @@
   "variables": {
     "deploymentApiVersion": "2016-09-01",
     "storageName": "[replace(replace(tolower(concat('pcagent', uniquestring(resourceGroup().id))), '-',''),'.','')]",
-    "vnetName": "pcoip-vnet",
-    "subnetName": "agentVM-subnet",
     "vmNamePrefix": "agentVM",
-    "nsgName": "pcoip-agent-nsg",
+    "nicName": "agentNic",
     "agentUrl": "https://binarystore.blob.core.windows.net/agents/2.8/PCoIP_agent_release_installer_2.8.0.5813_graphics.exe",
     "nvidiaDriverUrl": "https://binarystore.blob.core.windows.net/thirdparty/nvidia/369.95_grid_win10_server2016_64bit_international.exe"
   },
@@ -65,24 +63,6 @@
 
     {
       "type": "Microsoft.Resources/deployments",
-      "name": "depolyAgentNsg",
-      "apiVersion": "[variables('deploymentApiVersion')]",
-      "properties": {
-        "mode": "Incremental",
-        "templateLink": {
-          "uri": "[concat(parameters('_artifactsLocation'), '/resources/', 'pcoip_agent_nsg.json')]",
-          "contentVersion": "1.0.0.0"
-        },
-        "parameters": {
-          "nsgName": {
-            "value": "[variables('nsgName')]"
-          }
-        }
-      }
-    },
-
-    {
-      "type": "Microsoft.Resources/deployments",
       "name": "depolyVNet",
       "apiVersion": "[variables('deploymentApiVersion')]",
       "properties": {
@@ -90,14 +70,6 @@
         "templateLink": {
           "uri": "[concat(parameters('_artifactsLocation'), '/resources/', 'virtual_network.json')]",
           "contentVersion": "1.0.0.0"
-        },
-        "parameters": {
-          "vnetName": {
-            "value": "[variables('vnetName')]"
-          },
-          "subnetName": {
-            "value": "[variables('subnetName')]"
-          }
         }
       }
     },
@@ -117,19 +89,16 @@
           "contentVersion": "1.0.0.0"
         },
         "parameters": {
-          "vmName": {
-            "value": "[variables('vmNamePrefix')]"
+          "domainNameLabel": {
+            "value": "[tolower(replace(concat(variables('vmNamePrefix'), '-', uniqueString(resourceGroup().name)), '.',''))]"
           },
-          "nsgName": {
-            "value": "[variables('nsgName')]"
+          "subnetId": {
+            "value": "[reference('depolyVNet').outputs.subnetRef.value]"
           },
-          "vnetName": {
-            "value": "[variables('vnetName')]"
-          },
-          "subnetName": {
-            "value": "[variables('subnetName')]"
+          "nicName": {
+            "value": "[variables('nicName')]"
           }
-        }
+        }         
       }
     },
 
