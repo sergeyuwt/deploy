@@ -126,7 +126,7 @@
             "value": "[parameters('adminPassword')]"
           },
           "nicName": {
-            "value": "[reference('depolyNIC').outputs.nicName.value]"
+            "value": "[variables('nicName')]"
           },
           "storageAccountName": {
             "value": "[variables('storageName')]"
