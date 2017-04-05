@@ -168,7 +168,7 @@
 
     {
       "type": "Microsoft.Resources/deployments",
-      "name": "deployNvidiaDriverDsc",
+      "name": "deployNvidiaAndAgentDsc",
       "apiVersion": "[variables('deploymentApiVersion')]",
       "dependsOn": [
         "deployVM"
@@ -176,42 +176,18 @@
       "properties": {
         "mode": "Incremental",
         "templateLink": {
-          "uri": "[concat(parameters('_artifactsLocation'), '/ga/', 'vm_install_nvidia_driver_dsc.json')]",
+          "uri": "[concat(parameters('_artifactsLocation'), '/ga/', 'vm_install_nvidia_and_agent_dsc.json')]",
           "contentVersion": "1.0.0.0"
         },
         "parameters": {
           "vmName": {
             "value": "[variables('vmNamePrefix')]"
           },
-          "sourceUrl": {
-            "value": "[variables('nvidiaDriverUrl')]"
-          },
-          "_artifactsLocation": {
-            "value": "[parameters('_artifactsLocation')]"
-          }
-        }
-      }
-    },
-
-    {
-      "type": "Microsoft.Resources/deployments",
-      "name": "deployAgentDsc",
-      "apiVersion": "[variables('deploymentApiVersion')]",
-      "dependsOn": [
-        "deployNvidiaDriverDsc"
-      ],
-      "properties": {
-        "mode": "Incremental",
-        "templateLink": {
-          "uri": "[concat(parameters('_artifactsLocation'), '/ga/', 'vm_install_agent_dsc.json')]",
-          "contentVersion": "1.0.0.0"
-        },
-        "parameters": {
-          "vmName": {
-            "value": "[variables('vmNamePrefix')]"
-          },
-          "sourceUrl": {
+          "gaSourceUrl": {
             "value": "[variables('agentUrl')]"
+          },
+          "nvidiaSourceUrl": {
+            "value": "[variables('nvidiaDriverUrl')]"
           },
           "registrationCode": {
             "value": "[parameters('registrationCode')]"

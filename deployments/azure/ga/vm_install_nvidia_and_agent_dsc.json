@@ -8,12 +8,24 @@
         "description": "The Computer Name that this extension will be deployed on."
       }
     },
-    "sourceUrl": {
+    "gaSourceUrl": {
+      "type": "string",
+      "metadata": {
+        "description": "PCoIP Graphics Agent URL"
+      }
+    },
+    "nvidiaSourceUrl": {
       "type": "string",
       "metadata": {
         "description": "NVIDIA GRID driver URL"
       }
     },
+    "registrationCode": {
+      "type": "securestring",
+      "metadata": {
+        "description": "PCoIP Standard Agent License Registration Code."
+      }
+    },       
     "_artifactsLocation": {
       "type": "string",
       "metadata": {
@@ -24,7 +36,7 @@
   "resources": [
     {
       "type": "Microsoft.Compute/virtualMachines/extensions",
-      "name": "[concat(parameters('vmName'), '/NvidiaDscExtension')]", 
+      "name": "[concat(parameters('vmName'), '/NvidiaPCoIPAgentDscExtension')]", 
       "apiVersion": "2017-03-30",
       "location": "[resourceGroup().location]",
       "properties": {
@@ -34,13 +46,15 @@
         "autoUpgradeMinorVersion": "true",
         "settings": {
       	  "configuration": {
-		      "url": "[concat(parameters('_artifactsLocation'), '/ga/', 'Install-NvidiaDriver.zip')]",
-			  "script": "Install-NvidiaDriver.ps1",
-			  "function": "InstallNvidiaDriver"
-		  },                
-		  "configurationArguments": {
-		    "sourceUrl": "[parameters('sourceUrl')]"
-		  },                              
+		        "url": "[concat(parameters('_artifactsLocation'), '/ga/', 'Install-NvidiaAndPCoIPGraphicsAgent.zip')]",
+			    "script": "Install-NvidiaAndPCoIPGraphicsAgent.ps1",
+			    "function": "InstallPCoIPAgent"
+		      },                
+		      "configurationArguments": {
+		        "gaSourceUrl": "[parameters('gaSourceUrl')]",
+                "nvidiaSourceUrl: "[parameters('nvidiaSourceUrl')]",
+                "registrationCode": "[parameters('registrationCode')]"
+		      },                              
           "privacy": {
             "DataCollection": "Disable"
           }

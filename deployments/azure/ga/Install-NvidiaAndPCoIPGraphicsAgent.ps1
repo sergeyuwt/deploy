@@ -3,7 +3,10 @@ Configuration InstallPCoIPAgent
 {
 	param(
      	[Parameter(Mandatory=$true)]
-     	[String] $sourceUrl,
+     	[String] $gaSourceUrl,
+
+     	[Parameter(Mandatory=$true)]
+     	[String] $nvidiaSourceUrl,
     
      	[Parameter(Mandatory=$false)]
      	[String] $registrationCode     	
@@ -23,9 +26,37 @@ Configuration InstallPCoIPAgent
             DestinationPath = "C:\WindowsAzure\PCoIPAgentInstaller"
         }
 
-        Script Install_PCoIPAgent
+        Script InstallNvidiaDriver
         {
             DependsOn  = "[File]Download_Directory"
+
+            GetScript  = { @{ Result = "Install_Nvidia" } }
+
+            TestScript = {
+				if ( Get-Item -path "Registry::HKEY_LOCAL_MACHINE\SOFTWARE\NVIDIA Corporation\Installer2\Drivers" -ErrorAction SilentlyContinue )  {
+					return $true
+				}else {
+					return $false
+				} 
+			}
+
+            SetScript  = {
+                Write-Verbose "Downloading Nvidia driver"
+                $nvidiaSourceUrl = $using:nvidiaSourceUrl
+                $installerFileName = [System.IO.Path]::GetFileName($nvidiaSourceUrl)
+                $destFile = "c:\WindowsAzure\NvidiaInstaller\" + $installerFileName
+                Invoke-WebRequest $nvidiaSourceUrl -OutFile $destFile
+
+                Write-Verbose "Installing Nvidia driver"
+                Start-Process -FilePath $destFile -ArgumentList "/s" -Wait
+
+                Write-Verbose "Finished Nvidia driver Installation"
+            }
+        }
+
+        Script Install_PCoIPAgent
+        {
+            DependsOn  = @("[File]Download_Directory","[Script]InstallNvidiaDriver")
             GetScript  = { @{ Result = "Install_PCoIPAgent" } }
 
             #TODO: Check for other agent types as well?
@@ -43,12 +74,12 @@ Configuration InstallPCoIPAgent
 				#agent installer exit code 1641 require reboot machine
 				Set-Variable EXIT_CODE_REBOOT 1641 -Option Constant
 
-                $sourceUrl = $using:sourceUrl
-                $installerFileName = [System.IO.Path]::GetFileName($sourceUrl)
+                $gaSourceUrl = $using:gaSourceUrl
+                $installerFileName = [System.IO.Path]::GetFileName($gaSourceUrl)
                 $destFile = "C:\WindowsAzure\PCoIPAgentInstaller\" + $installerFileName
                 
 				Write-Verbose "Downloading PCoIP Agent"
-                Invoke-WebRequest $sourceUrl -OutFile $destFile
+                Invoke-WebRequest $gaSourceUrl -OutFile $destFile
 
                 #install the agent
 				Write-Verbose "Installing PCoIP Agent"
