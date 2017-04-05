@@ -79,7 +79,6 @@
       "name": "depolyNIC",
       "apiVersion": "[variables('deploymentApiVersion')]",
       "dependsOn": [
-        "depolyAgentNsg",
         "depolyVNet"
       ],
       "properties": {
