@@ -107,6 +107,18 @@ Configuration InstallPCoIPAgent
 					}
 				}
 
+				
+	            Write-Verbose "Finished PCoIP Agent Installation"
+            }
+        }
+
+        Script Register
+        {
+            DependsOn  = @("[Script]Install_PCoIPAgent")
+
+            GetScript  = { return 'registration'}
+            TestScript = { return $false}
+            SetScript  = {
                 #register code is stored at the password property of PSCredential object
                 $registrationCode = ($using:registrationCodeCredential).GetNetworkCredential().password
                 if ($registrationCode) {
@@ -140,37 +152,28 @@ Configuration InstallPCoIPAgent
 					}
                 }
                
-				if ($rebootRequired) {
-	                Write-Verbose "Request reboot machine."
-			        # Setting the global:DSCMachineStatus = 1 tells DSC that a reboot is required
-				    $global:DSCMachineStatus = 1
-				} else {				
-					#start service if it is not started
-					$serviceName = "PCoIPAgent"
-					$svc = Get-Service -Name $serviceName   
+				#start service if it is not started
+				$serviceName = "PCoIPAgent"
+				$svc = Get-Service -Name $serviceName   
 
-					if ($svc.StartType -eq "Disabled") {
-						Set-Service -name  $serviceName -StartupType Automatic
-					}
-					
-					if ($svc.status -eq "Paused") {
-						$svc.Continue()
-					}
-
-					if ( $svc.status -eq "Stopped" )	{
-						Write-Verbose "Starting PCoIP Agent Service because it is at stopped status."
-						$svc.Start()
-						$svc.WaitForStatus("Running", 120)
-					}
+				if ($svc.StartType -eq "Disabled") {
+					Set-Service -name  $serviceName -StartupType Automatic
 				}
-				
-	            Write-Verbose "Finished PCoIP Agent Installation"
-            }
+					
+				if ($svc.status -eq "Paused") {
+					$svc.Continue()
+				}
+
+				if ( $svc.status -eq "Stopped" )	{
+					Write-Verbose "Starting PCoIP Agent Service because it is at stopped status."
+					$svc.Start()
+					$svc.WaitForStatus("Running", 120)
+				}            }
         }
 
         Script Reset_Grid
         {
-            DependsOn  = @("[Script]Install_PCoIPAgent")
+            DependsOn  = @("[Script]Register")
 
             GetScript  = { return 'reset_grid.bat'}
             TestScript = { return $false}
