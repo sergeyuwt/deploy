@@ -178,11 +178,11 @@ Configuration InstallPCoIPAgent
             GetScript  = { return 'reset_grid.bat'}
             TestScript = { return $false}
             SetScript  = {
-				Write-Verbose "will run reset_grid.bat in 60 seconds"
+				Write-Verbose "will run reset_grid.bat in 10 seconds"
                 # Insert a delay
-                Start-Sleep -Seconds (60)
+                Start-Sleep -Seconds (10)
  
-                $batchFile = "C:\'Program Files (x86)'\Teradici\'PCoIP Agent'\GRID\reset_grid.bat"
+                $batchFile = "C:\Program Files (x86)\Teradici\PCoIP Agent\GRID\reset_grid.bat"
 				Write-Verbose "starting reset_grid.bat"
                 Start-Process -FilePath $batchFile -ArgumentList "/S"
 				Write-Verbose "reset_grid.bat ran"
