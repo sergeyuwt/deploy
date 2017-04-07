@@ -95,15 +95,12 @@ Configuration InstallPCoIPAgent
 
                 #install the agent
 				Write-Verbose "Installing PCoIP Agent"
-                $ret = Start-Process -FilePath $destFile -ArgumentList "/S /nopostreboot" -PassThru -Wait
+                $ret = Start-Process -FilePath $destFile -ArgumentList "/S" -PassThru -Wait
 
 				# Check installer return code
-				$rebootRequired = $False
 				if ($ret.ExitCode -ne 0) {
 					#exit code 1641 means requiring reboot machine after intallation is done, other non zere exit code means installation has some error
-					if ($ret.ExitCode -eq $EXIT_CODE_REBOOT) {
-						$rebootRequired = $True
-					} else {
+					if ($ret.ExitCode -ne $EXIT_CODE_REBOOT) {
 						$errMsg = "Failed to install PCoIP Agent. Exit Code: " + $ret.ExitCode
 						Write-Verbose $errMsg
 						throw $errMsg
@@ -181,10 +178,6 @@ Configuration InstallPCoIPAgent
 				Write-Verbose "will run reset_grid.bat in 10 seconds"
                 # Insert a delay
                 Start-Sleep -Seconds (10)
-                #don't need another restart
-                $global:DSCMachineStatus = 0
-
-                Restart-Computer
  
                 $batchFile = "C:\Program Files (x86)\Teradici\PCoIP Agent\GRID\reset_grid.bat"
 				Write-Verbose "starting reset_grid.bat"
