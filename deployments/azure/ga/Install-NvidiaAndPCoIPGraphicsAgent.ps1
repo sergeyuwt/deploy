@@ -181,6 +181,10 @@ Configuration InstallPCoIPAgent
 				Write-Verbose "will run reset_grid.bat in 10 seconds"
                 # Insert a delay
                 Start-Sleep -Seconds (10)
+                #don't need another restart
+                $global:DSCMachineStatus = 0
+
+                Restart-Computer
  
                 $batchFile = "C:\Program Files (x86)\Teradici\PCoIP Agent\GRID\reset_grid.bat"
 				Write-Verbose "starting reset_grid.bat"
