@@ -8,7 +8,7 @@
         "description": "The Computer Name that this extension will be deployed on."
       }
     },
-    "gaSourceUrl": {
+    "agentSourceUrl": {
       "type": "string",
       "metadata": {
         "description": "PCoIP Graphics Agent URL"
@@ -47,11 +47,11 @@
         "settings": {
       	  "configuration": {
 		        "url": "[concat(parameters('_artifactsLocation'), '/resources/', 'Install-NvidiaAndPCoIPAgent.zip')]",
-			    "script": "Install-NvidiaAndPCoIPGraphicsAgent.ps1",
+			    "script": "Install-NvidiaAndPCoIPAgent.ps1",
 			    "function": "InstallPCoIPAgent"
 		      },                
 		      "configurationArguments": {
-		        "agentSourceUrl": "[parameters('gaSourceUrl')]",
+		        "agentSourceUrl": "[parameters('agentSourceUrl')]",
                 "nvidiaSourceUrl": "[parameters('nvidiaSourceUrl')]"
 		      },                              
               "privacy": {
