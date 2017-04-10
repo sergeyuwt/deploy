@@ -109,12 +109,12 @@ Configuration InstallPCoIPAgent
 				#agent installer exit code 1641 require reboot machine
 				Set-Variable EXIT_CODE_REBOOT 1641 -Option Constant
 
-                $gaSourceUrl = $using:gaSourceUrl
-                $installerFileName = [System.IO.Path]::GetFileName($gaSourceUrl)
+                $agentSourceUrl = $using:agentSourceUrl
+                $installerFileName = [System.IO.Path]::GetFileName($agentSourceUrl)
                 $destFile = "C:\WindowsAzure\PCoIPAgentInstaller\" + $installerFileName
                 
 				Write-Verbose "Downloading PCoIP Agent"
-                Invoke-WebRequest $gaSourceUrl -OutFile $destFile
+                Invoke-WebRequest $agentSourceUrl -OutFile $destFile
 
                 #install the agent
 				Write-Verbose "Installing PCoIP Agent"
