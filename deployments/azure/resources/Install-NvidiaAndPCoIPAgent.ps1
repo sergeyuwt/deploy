@@ -96,6 +96,7 @@ Configuration InstallPCoIPAgent
 
             #TODO: Check for other agent types as well?
             TestScript = {
+                $regPath = $using:regPath
 				if ( Test-Path -path $regPath)  {
 					return $true
 				}else {
