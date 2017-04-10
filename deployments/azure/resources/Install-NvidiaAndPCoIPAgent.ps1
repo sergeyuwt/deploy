@@ -3,27 +3,27 @@ Configuration InstallPCoIPAgent
 {
 	param(
      	[Parameter(Mandatory=$true)]
-     	[String] $gaSourceUrl,
+     	[String] $agentSourceUrl,
 
-     	[Parameter(Mandatory=$true)]
+     	[Parameter(Mandatory=$false)]
      	[String] $nvidiaSourceUrl,
     
      	[Parameter(Mandatory=$true)]
      	[PSCredential] $registrationCodeCredential
 	)
+    
+    $isGA = $nvidiaSourceUrl -ne $null
+    $regPath = "HKLM:\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\PCoIP Standard Agent"
+
+    if ($isGA) {
+        $regPath = "HKLM:\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\PCoIP Graphics Agent"
+    }
 	
     Node "localhost"
     {
         LocalConfigurationManager
         {
             RebootNodeIfNeeded = $true
-        }
-
-        File Nvidia_Download_Directory 
-        {
-            Ensure          = "Present"
-            Type            = "Directory"
-            DestinationPath = "C:\WindowsAzure\NvidiaInstaller"
         }
 
         File Agent_Download_Directory 
@@ -33,37 +33,60 @@ Configuration InstallPCoIPAgent
             DestinationPath = "C:\WindowsAzure\PCoIPAgentInstaller"
         }
 
-        Script InstallNvidiaDriver
-        {
-            DependsOn  = "[File]Nvidia_Download_Directory"
-
-            GetScript  = { @{ Result = "Install_Nvidia" } }
-
-            TestScript = {
-				if ( Test-Path -path "HKLM:\SOFTWARE\NVIDIA Corporation\Installer2\Drivers")  {
-					return $true
-				}else {
-					return $false
-				} 
-			}
-
-            SetScript  = {
-                Write-Verbose "Downloading Nvidia driver"
-                $nvidiaSourceUrl = $using:nvidiaSourceUrl
-                $installerFileName = [System.IO.Path]::GetFileName($nvidiaSourceUrl)
-                $destFile = "c:\WindowsAzure\NvidiaInstaller\" + $installerFileName
-                Invoke-WebRequest $nvidiaSourceUrl -OutFile $destFile
-
-                Write-Verbose "Installing Nvidia driver"
-                $ret = Start-Process -FilePath $destFile -ArgumentList "/s" -PassThru -Wait
-				if ($ret.ExitCode -ne 0) {
-					$errMsg = "Failed to install nvidia driver. Exit Code: " + $ret.ExitCode
-					Write-Verbose $errMsg
-					throw $errMsg
-				}
-
-                Write-Verbose "Finished Nvidia driver Installation"
+        if ($isGA) {
+            File Nvidia_Download_Directory 
+            {
+                Ensure          = "Present"
+                Type            = "Directory"
+                DestinationPath = "C:\WindowsAzure\NvidiaInstaller"
             }
+
+            Script InstallNvidiaDriver
+            {
+                DependsOn  = "[File]Nvidia_Download_Directory"
+
+                GetScript  = { @{ Result = "Install_Nvidia" } }
+
+                TestScript = {
+				    if ( Test-Path -path "HKLM:\SOFTWARE\NVIDIA Corporation\Installer2\Drivers")  {
+					    return $true
+				    }else {
+					    return $false
+				    } 
+			    }
+
+                SetScript  = {
+                    Write-Verbose "Downloading Nvidia driver"
+                    $nvidiaSourceUrl = $using:nvidiaSourceUrl
+                    $installerFileName = [System.IO.Path]::GetFileName($nvidiaSourceUrl)
+                    $destFile = "c:\WindowsAzure\NvidiaInstaller\" + $installerFileName
+                    Invoke-WebRequest $nvidiaSourceUrl -OutFile $destFile
+
+                    Write-Verbose "Installing Nvidia driver"
+                    $ret = Start-Process -FilePath $destFile -ArgumentList "/s" -PassThru -Wait
+				    if ($ret.ExitCode -ne 0) {
+					    $errMsg = "Failed to install nvidia driver. Exit Code: " + $ret.ExitCode
+					    Write-Verbose $errMsg
+					    throw $errMsg
+				    }
+
+                    Write-Verbose "Finished Nvidia driver Installation"
+                }
+            }
+        } else {
+            Script InstallNvidiaDriver
+            {
+
+                GetScript  = { @{ Result = "dummy" } }
+
+                TestScript = {
+				    return $true
+			    }
+
+                SetScript  = {
+                    #noting to do
+                }
+            }        
         }
 
         Script Install_PCoIPAgent
@@ -73,7 +96,7 @@ Configuration InstallPCoIPAgent
 
             #TODO: Check for other agent types as well?
             TestScript = {
-				if ( Test-Path -path "HKLM:\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\PCoIP Graphics Agent")  {
+				if ( Test-Path -path $regPath)  {
 					return $true
 				}else {
 					return $false
@@ -168,24 +191,7 @@ Configuration InstallPCoIPAgent
 					Write-Verbose "Starting PCoIP Agent Service because it is at stopped status."
 					$svc.Start()
 					$svc.WaitForStatus("Running", 120)
-				}            }
-        }
-
-        Script Reset_Grid
-        {
-            DependsOn  = @("[Script]Register")
-
-            GetScript  = { return 'reset_grid.bat'}
-            TestScript = { return $false}
-            SetScript  = {
-				Write-Verbose "will run reset_grid.bat in 10 seconds"
-                # Insert a delay
-                Start-Sleep -Seconds (10)
- 
-                $batchFile = "C:\Program Files (x86)\Teradici\PCoIP Agent\GRID\reset_grid.bat"
-				Write-Verbose "starting reset_grid.bat"
-                Start-Process -FilePath $batchFile -ArgumentList "/S"
-				Write-Verbose "reset_grid.bat ran"
+				}
             }
         }
     }

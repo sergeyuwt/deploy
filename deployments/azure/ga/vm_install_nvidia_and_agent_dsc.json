@@ -46,12 +46,12 @@
         "autoUpgradeMinorVersion": "true",
         "settings": {
       	  "configuration": {
-		        "url": "[concat(parameters('_artifactsLocation'), '/ga/', 'Install-NvidiaAndPCoIPGraphicsAgent.zip')]",
+		        "url": "[concat(parameters('_artifactsLocation'), '/resources/', 'Install-NvidiaAndPCoIPAgent.zip')]",
 			    "script": "Install-NvidiaAndPCoIPGraphicsAgent.ps1",
 			    "function": "InstallPCoIPAgent"
 		      },                
 		      "configurationArguments": {
-		        "gaSourceUrl": "[parameters('gaSourceUrl')]",
+		        "agentSourceUrl": "[parameters('gaSourceUrl')]",
                 "nvidiaSourceUrl": "[parameters('nvidiaSourceUrl')]"
 		      },                              
               "privacy": {
