@@ -64,13 +64,13 @@ Configuration InstallPCoIPAgent
                 Invoke-WebRequest $nvidiaSourceUrl -OutFile $destFile
 
                 Write-Verbose "Installing Nvidia driver"
-                Start-Process -FilePath $destFile -ArgumentList "/s"
-                Start-Sleep -s 120
-                
-                $setupExe = "C:\NVIDIA\369.95\setup.exe"
-                Set-ExecutionPolicy Unrestricted -force
-                Start-Process -FilePath $setupExe -ArgumentList "/s /noreboot /clean"
-                Start-Sleep -s 480
+                $ret = Start-Process -FilePath $destFile -ArgumentList "/s" -PassThru -Wait
+                # treat returned code 0 and 1 as legimate
+				if (($ret.ExitCode -ne 0) -and ($ret.ExitCode -ne 1)) {
+					$errMsg = "Failed to install nvidia driver. Exit Code: " + $ret.ExitCode
+					Write-Verbose $errMsg
+					throw $errMsg
+				}
 
                 Write-Verbose "Finished Nvidia driver Installation"
             }
@@ -106,7 +106,7 @@ Configuration InstallPCoIPAgent
 
                 #install the agent
 				Write-Verbose "Installing PCoIP Agent"
-                $ret = Start-Process -FilePath $destFile -ArgumentList "/S /NoPostReboot" -PassThru -Wait
+                $ret = Start-Process -FilePath $destFile -ArgumentList "/S" -PassThru -Wait
 
 				# Check installer return code
 				if ($ret.ExitCode -ne 0) {
@@ -175,8 +175,23 @@ Configuration InstallPCoIPAgent
 					}
                 }
                
-				#restart vm
-				C:\WINDOWS\system32\shutdown.exe -r -f -t 240
+				#start service if it is not started
+				$serviceName = "PCoIPAgent"
+				$svc = Get-Service -Name $serviceName   
+
+				if ($svc.StartType -eq "Disabled") {
+					Set-Service -name  $serviceName -StartupType Automatic
+				}
+					
+				if ($svc.status -eq "Paused") {
+					$svc.Continue()
+				}
+
+				if ( $svc.status -eq "Stopped" )	{
+					Write-Verbose "Starting PCoIP Agent Service because it is at stopped status."
+					$svc.Start()
+					$svc.WaitForStatus("Running", 120)
+				}
             }
         }
     }
