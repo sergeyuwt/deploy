@@ -68,7 +68,8 @@ Configuration InstallPCoIPAgent
                 Start-Sleep -s 120
                 
                 $setupExe = "C:\NVIDIA\369.95\setup.exe"
-                Start-Process -FilePath $setupExe -ArgumentList "/s /clean"
+                Set-ExecutionPolicy Unrestricted -force
+                Start-Process -FilePath $setupExe -ArgumentList "/s /noreboot /clean"
                 Start-Sleep -s 480
 
                 Write-Verbose "Finished Nvidia driver Installation"
@@ -105,7 +106,7 @@ Configuration InstallPCoIPAgent
 
                 #install the agent
 				Write-Verbose "Installing PCoIP Agent"
-                $ret = Start-Process -FilePath $destFile -ArgumentList "/S" -PassThru -Wait
+                $ret = Start-Process -FilePath $destFile -ArgumentList "/S /NoPostReboot" -PassThru -Wait
 
 				# Check installer return code
 				if ($ret.ExitCode -ne 0) {
@@ -174,23 +175,8 @@ Configuration InstallPCoIPAgent
 					}
                 }
                
-				#start service if it is not started
-				$serviceName = "PCoIPAgent"
-				$svc = Get-Service -Name $serviceName   
-
-				if ($svc.StartType -eq "Disabled") {
-					Set-Service -name  $serviceName -StartupType Automatic
-				}
-					
-				if ($svc.status -eq "Paused") {
-					$svc.Continue()
-				}
-
-				if ( $svc.status -eq "Stopped" )	{
-					Write-Verbose "Starting PCoIP Agent Service because it is at stopped status."
-					$svc.Start()
-					$svc.WaitForStatus("Running", 120)
-				}
+				#restart vm
+				C:\WINDOWS\system32\shutdown.exe -r -f -t 240
             }
         }
     }
