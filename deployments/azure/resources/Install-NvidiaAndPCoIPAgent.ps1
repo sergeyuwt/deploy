@@ -19,6 +19,8 @@ Configuration InstallPCoIPAgent
         $regPath = "HKLM:\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\PCoIP Standard Agent"
     }
 	
+    Import-DscResource -module xFirefox
+
     Node "localhost"
     {
         LocalConfigurationManager
@@ -198,5 +200,19 @@ Configuration InstallPCoIPAgent
 				}
             }
         }
+        Registry DisableServerManager
+        {
+            Ensure = "Present"
+            Key = "HKLM:\Software\Microsoft\ServerManager"
+            ValueName = "DoNotOpenServerManagerAtLogon"
+            ValueData = "1"
+            ValueType = "Dword"
+        }
+
+
+        MSFT_xFirefox Firefox
+        {
+        }
+
     }
 }
