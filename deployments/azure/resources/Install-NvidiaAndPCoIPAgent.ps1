@@ -23,6 +23,9 @@ Configuration InstallPCoIPAgent
 	
     Node "localhost"
     {
+
+        VmUsability TheVmUsability
+
         LocalConfigurationManager
         {
             RebootNodeIfNeeded = $true
@@ -199,10 +202,6 @@ Configuration InstallPCoIPAgent
 					$svc.WaitForStatus("Running", 120)
 				}
             }
-        }
-
-        VmUsability TheVmUsability {
-            DependsOn  = @("[Script]Register")
         }
     }
 }
