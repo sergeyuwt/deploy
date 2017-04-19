@@ -1,4 +1,6 @@
-# Install-PCoIPGraphicsAgent.ps1
+# Install-NvidiaAndPCoIPAgent.ps1
+. .\vm_usability.ps1
+
 Configuration InstallPCoIPAgent
 {
 	param(
@@ -19,8 +21,6 @@ Configuration InstallPCoIPAgent
         $regPath = "HKLM:\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\PCoIP Standard Agent"
     }
 	
-    Import-DscResource -module xFirefox
-
     Node "localhost"
     {
         LocalConfigurationManager
@@ -200,19 +200,9 @@ Configuration InstallPCoIPAgent
 				}
             }
         }
-        Registry DisableServerManager
-        {
-            Ensure = "Present"
-            Key = "HKLM:\Software\Microsoft\ServerManager"
-            ValueName = "DoNotOpenServerManagerAtLogon"
-            ValueData = "1"
-            ValueType = "Dword"
+
+        VmUsability TheVmUsability {
+            DependsOn  = @("[Script]Register")
         }
-
-
-        MSFT_xFirefox Firefox
-        {
-        }
-
     }
 }
