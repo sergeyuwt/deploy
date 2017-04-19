@@ -1,5 +1,5 @@
 # Install-NvidiaAndPCoIPAgent.ps1
-. .\vm-usability.ps1
+. vm-usability.ps1
 
 Configuration InstallPCoIPAgent
 {
