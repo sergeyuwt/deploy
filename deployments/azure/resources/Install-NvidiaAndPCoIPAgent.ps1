@@ -221,7 +221,7 @@ Configuration VmUsability
         }
 
 
-        MSFT_xFirefox Firefox
+        MSFT_xFirefox InstallFirefox
         {
             #install the latest firefox browser
         }
