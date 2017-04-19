@@ -1,6 +1,5 @@
 # Install-NvidiaAndPCoIPAgent.ps1
-Set-ExecutionPolicy -ExecutionPolicy Unrestricted
-. vm-usability.ps1
+. ".\vm-usability.ps1"
 
 Configuration InstallPCoIPAgent
 {
