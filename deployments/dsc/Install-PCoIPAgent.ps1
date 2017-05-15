@@ -260,12 +260,13 @@ Configuration AudioService
 {
     Node "localhost"
     {
+		$serviceName = "Audiosrv"
+		$svc = Get-Service -Name $serviceName   
+
         Script SetAudioServiceAutomaticAndRunning
         {
             GetScript  = { @{ Result = "Audio_Service" } }
 
-			$serviceName = "Audiosrv"
-			$svc = Get-Service -Name $serviceName   
             TestScript = {
                 if ($svc.StartType -ne "Automatic" -or $svc.status -ne "Running") {
 					return $false
