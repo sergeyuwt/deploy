@@ -268,6 +268,8 @@ Configuration AudioService
             GetScript  = { @{ Result = "Audio_Service" } }
 
             TestScript = {
+                $svc = $using:svc
+
                 if ($svc.StartType -ne "Automatic" -or $svc.status -ne "Running") {
 					return $false
 				} else {
@@ -276,6 +278,8 @@ Configuration AudioService
 			}
 
             SetScript  = {
+                $serviceName = $using:serviceName
+                $svc = $using:svc
 				if ($svc.StartType -ne "Automatic") {
 					$msg = "start type of " + $servicename + " is: " + $svc.StartType
 					Write-Verbose $msg
