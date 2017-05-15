@@ -234,6 +234,11 @@ Configuration DisableServerManager
 
 Configuration InstallFirefox
 {
+    param(
+     	[Parameter(Mandatory=$true)]
+     	[String] $MachineBits = "x64"
+    )
+
     Import-DscResource -module xFirefox
 
     Node "localhost"
@@ -241,6 +246,7 @@ Configuration InstallFirefox
         MSFT_xFirefox InstallFirefox
         {
             #install the latest firefox browser
+            MachineBits = $MachineBits
         }
     }
 }
