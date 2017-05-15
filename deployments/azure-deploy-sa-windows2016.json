@@ -28,7 +28,7 @@
   },
   "variables": {
     "deploymentApiVersion": "2016-09-01",
-    "artifactsLocation": "https://raw.githubusercontent.com/sergeyuwt/deploy/master",
+    "artifactsLocation": "https://raw.githubusercontent.com/sergeyuwt/deploy/master/deployments",
     "binaryLocation": "https://binarystore.blob.core.windows.net"
   },
   "resources": [
