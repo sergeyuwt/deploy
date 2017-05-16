@@ -236,9 +236,7 @@ Configuration DisableServerManager
 Configuration InstallFirefox
 {
     param(
-     	[Parameter(Mandatory=$true)]
      	[String] $MachineBits = "x64",
-     	[Parameter(Mandatory=$true)]
      	[String] $VersionNumber = "53.0"
     )
 
