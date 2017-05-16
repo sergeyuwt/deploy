@@ -214,6 +214,7 @@ Configuration VmUsability
     {
         DisableServerManager TheDisableServerManager
         InstallFirefox TheInstallFirefox
+        AudioService TheAudioService
     }
 }
 
@@ -243,4 +244,48 @@ Configuration InstallFirefox
             #install the latest firefox browser
         }
     }
+}
+
+Configuration AudioService
+{
+	$serviceName = "Audiosrv"
+	$svc = Get-Service -Name $serviceName   
+
+    Node "localhost"
+    {
+        Script SetAudioServiceAutomaticAndRunning
+        {
+            GetScript  = { @{ Result = "Audio_Service" } }
+
+            TestScript = {
+                $svc = $using:svc
+
+                if (($svc.StartType -ne "Automatic") -or ($svc.status -ne "Running")) {
+					return $false
+				} else {
+					return $true
+				} 
+			}
+
+            SetScript  = {
+                $serviceName = $using:serviceName
+                $svc = $using:svc
+				if ($svc.StartType -ne "Automatic") {
+					$msg = "start type of " + $servicename + " is: " + $svc.StartType
+					Write-Verbose $msg
+					Set-Service -name  $serviceName -StartupType Automatic
+					$msg = "changed start type of " + $servicename + " to: Automatic"
+					Write-Verbose $msg
+				}
+					
+				if ($svc.status -ne "Running") {
+					$msg = "status of " + $servicename + " is: " + $svc.status
+					Write-Verbose $msg
+					Set-Service -Name $serviceName -Status Running
+					$msg = "changed status of " + $servicename + " to: Running"
+					Write-Verbose $msg
+				}
+            }
+		}
+	}
 }
