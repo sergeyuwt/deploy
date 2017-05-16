@@ -236,8 +236,7 @@ Configuration DisableServerManager
 Configuration InstallFirefox
 {
     param(
-     	[String] $MachineBits = "x64",
-     	[String] $VersionNumber = "51.0"
+     	[String] $VersionNumber = "53.0"
     )
 
     Import-DscResource -module xFirefox
@@ -246,8 +245,6 @@ Configuration InstallFirefox
     {
         MSFT_xFirefox InstallFirefox
         {
-            #install the latest firefox browser
-            MachineBits = $MachineBits
             VersionNumber = $VersionNumber
         }
     }
