@@ -268,16 +268,22 @@ Configuration InstallFirefox
 
         SetScript  = {
             Write-Verbose "Installing firefox"
-            $desfFile = $using:LocalPath
+            $destFile = $using:LocalPath
             $ret = Start-Process -FilePath $destFile -ArgumentList "/SilentMode" -PassThru -Wait
 
 			if ($ret.ExitCode -ne 0) {
-				$errMsg = "Failed to install firefox. exitcode: " + $ret.ExitCode
-				Write-Verbose $errMsg
-				throw $errMsg
-			}
+                # retry
+                $ret = Start-Process -FilePath $destFile -ArgumentList "/SilentMode" -PassThru -Wait
 
-            Write-Verbose "Finished firefox Installation"
+			    if ($ret.ExitCode -ne 0) {
+				    $errMsg = "Failed to install firefox. exitcode: " + $ret.ExitCode
+				    Write-Verbose $errMsg
+			    } else {
+                    Write-Verbose "Finished firefox Installation"
+                }
+			} else {
+                Write-Verbose "Finished firefox Installation"
+            }
         }
     }
 }
