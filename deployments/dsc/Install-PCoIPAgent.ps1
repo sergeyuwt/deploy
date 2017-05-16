@@ -251,14 +251,34 @@ Configuration InstallFirefox
 	    DestinationPath = $LocalPath
     }
 	 
-    Package Installer
+    Script Install_Firefox
     {
-	    Ensure = "Present"
-	    Path = $LocalPath
-        Name = "Mozilla Firefox " + $VersionNumber + " (" + $MachineBits + " " + $Language +")"
-	    ProductId = ''
-        Arguments = "/SilentMode"
         DependsOn = "[xRemoteFile]Downloader"
+        GetScript  = { @{ Result = "Install_Firefox" } }
+
+        TestScript = {
+            $regPath = "HKLM:\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\Mozilla Firefox*"
+
+			if ( Test-Path -path $regPath)  {
+				return $true
+			} else {
+				return $false
+			} 
+		}
+
+        SetScript  = {
+            Write-Verbose "Installing firefox"
+            $desfFile = $using:LocalPath
+            $ret = Start-Process -FilePath $destFile -ArgumentList "/SilentMode" -PassThru -Wait
+
+			if ($ret.ExitCode -ne 0) {
+				$errMsg = "Failed to install firefox. exitcode: " + $ret.ExitCode
+				Write-Verbose $errMsg
+				throw $errMsg
+			}
+
+            Write-Verbose "Finished firefox Installation"
+        }
     }
 }
 
