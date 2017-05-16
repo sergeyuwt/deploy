@@ -236,8 +236,8 @@ Configuration DisableServerManager
 Configuration InstallFirefox
 {
     param(
-     	[String] $VersionNumber = "latest",
-     	[String] $MachineBits = "x64"
+     	[String] $VersionNumber = "53.0.2",
+     	[String] $MachineBits = "x86"
     )
 
     Import-DscResource -module xFirefox
