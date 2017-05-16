@@ -235,20 +235,30 @@ Configuration DisableServerManager
 
 Configuration InstallFirefox
 {
-    param(
-     	[String] $VersionNumber = "53.0.2",
-     	[String] $MachineBits = "x86"
+    param
+    (
+        [string]$VersionNumber = "latest",
+        [string]$Language = "en-US",
+	    [string]$OS = "win",
+        [string]$MachineBits = "x86",
+	    [string]$LocalPath = "$env:SystemDrive\Windows\DtlDownloads\Firefox Setup " + $versionNumber +".exe"
     )
+    Import-DscResource -ModuleName xPSDesiredStateConfiguration
 
-    Import-DscResource -module xFirefox
-
-    Node "localhost"
+    xRemoteFile Downloader
     {
-        MSFT_xFirefox InstallFirefox
-        {
-            VersionNumber = $VersionNumber
-            MachineBits = $MachineBits
-        }
+        Uri = "http://download.mozilla.org/?product=firefox-" + $VersionNumber +"&os="+$OS+"&lang=" + $Language 
+	    DestinationPath = $LocalPath
+    }
+	 
+    Package Installer
+    {
+	    Ensure = "Present"
+	    Path = $LocalPath
+        Name = "Mozilla Firefox " + $VersionNumber + " (" + $MachineBits + " " + $Language +")"
+	    ProductId = ''
+        Arguments = "/SilentMode"
+        DependsOn = "[xRemoteFile]Downloader"
     }
 }
 
