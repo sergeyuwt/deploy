@@ -28,7 +28,7 @@
   },
   "variables": {
     "deploymentApiVersion": "2016-09-01",
-    "artifactsLocation": "https://raw.githubusercontent.com/sergeyuwt/deploy/master/deployments",
+    "artifactsLocation": "https://raw.githubusercontent.com/teradici/pcoip-agent-azure-templates/master",
     "binaryLocation": "https://binarystore.blob.core.windows.net"
   },
   "resources": [
