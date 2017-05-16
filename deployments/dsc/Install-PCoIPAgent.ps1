@@ -237,7 +237,7 @@ Configuration InstallFirefox
 {
     param(
      	[String] $MachineBits = "x64",
-     	[String] $VersionNumber = "53.0"
+     	[String] $VersionNumber = "51.0"
     )
 
     Import-DscResource -module xFirefox
